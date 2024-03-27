@@ -1,9 +1,9 @@
-/* Error: expected "{".
- *    ,
- * 24 | #2D2F2C
- *    |        ^
- *    '
- *   custom-bulma.scss 24:8  root stylesheet */
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import 'bulma';
+ *   |         ^^^^^^^
+ *   '
+ *   custom-bulma.scss 1:9  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: 'Error: expected "{".\a    \2577 \a 24 \2502  #2D2F2C\a    \2502         ^\a    \2575 \a   custom-bulma.scss 24:8  root stylesheet';
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import 'bulma';\a   \2502          ^^^^^^^\a   \2575 \a   custom-bulma.scss 1:9  root stylesheet";
 }
