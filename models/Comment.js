@@ -19,6 +19,29 @@ Comment.init(
         key: 'id',
       },
     },
+    post_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'post',
+        key: 'id',
+      },
+    },
+    // Check this client side
     comment: {
-        
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    date_created: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'comment',
     }
+  );
+
+  module.exports = Comment;

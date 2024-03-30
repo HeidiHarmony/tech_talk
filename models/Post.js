@@ -44,9 +44,10 @@ Post.init(
     type: DataTypes.ARRAY(DataTypes.DATE),
     allowNull: true,
   }, 
+  },
   {
     hooks: {
-      beforeValidate: (post, options) => {
+      beforeValidate: (post) => {
         const minWords = 100;
         const maxWords = 1500; // Example maximum word count
         const wordCount = post.content.split(/\s+/).length;
