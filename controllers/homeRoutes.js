@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { User, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) => {
+/* router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
     const projectData = await Project.findAll({
@@ -77,6 +77,6 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
-});
+}); */
 
 module.exports = router;

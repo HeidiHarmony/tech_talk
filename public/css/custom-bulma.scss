@@ -70,3 +70,38 @@ font-family: "mae-variable", sans-serif;
 font-variation-settings: 'wght' 900;
 }
 
+/* Footer Styling */
+
+.footer {
+  background-color: $dark;
+  color: $link;
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: 'wght' 300;
+}
+.ascii__art {
+  font-family: "mae-variable", sans-serif;
+  text-align: center;
+  text-overflow: clip;
+}
+
+.fade-out {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white, white, rgba(255, 255, 255, 0));
+  padding: 20px; /* Adjust padding as needed */
+}
+
+.ticker {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ticker__content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
