@@ -16,7 +16,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
+// Sign in route for registered users -----------------------------------------
+
+router.post('/signin', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
 
@@ -48,6 +50,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Log out route for users -----------------------------------------
+
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
@@ -57,5 +61,22 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+// Sign up route for new users -----------------------------------------
+
+router.post('/signup', async (req, res) => {
+  try {
+    const userData = await User.create(req.body);
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.status(200).json(userData);
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}),
 
 module.exports = router;
