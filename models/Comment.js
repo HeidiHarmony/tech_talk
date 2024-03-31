@@ -36,12 +36,14 @@ Comment.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    sequelize,
+  },
+  {
+    sequelize, // Pass sequelize instance as an option here
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'comment',
-    }
-  );
+  }
+);
 
-  module.exports = Comment;
+module.exports = Comment;
