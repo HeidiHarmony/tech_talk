@@ -1,7 +1,9 @@
-const router = require('express').Router();
 const User = require('../../models/User');
+const withAuth = require('../../utils/auth');
 
-router.post('/', async (req, res) => {
+// Signup a new user route
+
+router.post('/signup', async (req, res) => {
   try {
     const userData = await User.create(req.body);
 
@@ -14,9 +16,9 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
-});
+}),
 
-// Sign in route for registered users -----------------------------------------
+// Sign in route for registered users ----------------------------------------
 
 router.post('/signin', async (req, res) => {
   try {
@@ -50,6 +52,56 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+// Get all users route -----------------------------------------
+
+router.get('/', async (req, res) => {
+  try {
+    const userData = await User.findAll();
+
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get user by id route -----------------------------------------
+
+router.get('/:id', async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.params.id);
+
+    if (!userData) {
+      res.status(404).json({ message: 'No user found with this id!' });
+      return;
+    }
+
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Update user by id route -----------------------------------------
+
+router.put('/:id', withAuth, async (req, res) => {
+  try {
+    const userData = await User.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!userData[0]) {
+      res.status(404).json({ message: 'No user found with this id!' });
+      return;
+    }
+
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Log out route for users -----------------------------------------
 
 router.post('/logout', (req, res) => {
@@ -61,22 +113,5 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
-
-// Sign up route for new users -----------------------------------------
-
-router.post('/signup', async (req, res) => {
-  try {
-    const userData = await User.create(req.body);
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.status(200).json(userData);
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
-}),
 
 module.exports = router;
