@@ -1,17 +1,101 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @import 'bulma';
- *   |         ^^^^^^^
- *   '
- *   custom-bulma.scss 1:9  root stylesheet */
+@import 'bulma';
+/* --bulma-COLOR-invert --bulma-COLOR-light --bulma-COLOR-light-invert --bulma-COLOR-dark --bulma-COLOR-dark-invert --bulma-COLOR-soft --bulma-COLOR-primary-bold --bulam-COLOR-on-scheme Also, values from 05-100, ie. --bulma-COLOR-75 --bulma-COLOR-40-invert*/
+/* Mae Adobe font font-family: "mae-variable", sans-serif;
+ font-variation-settings: "wght" 100-900*/
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import 'bulma';\d\a   \2502          ^^^^^^^\a   \2575 \a   custom-bulma.scss 1:9  root stylesheet";
+ /* Temp color control */
+.has-bg-grayed-cobalt {
+    background-color: rgba(92,110,112, 1) !important;
+  }
+.has-text-grayed-cobalt {
+    color: rgba(92,110,112, 1);
+  }
+
+  .has-bg-charcoal-dark {
+    background: rgba(44,53,64, 1);
+  }
+
+  .has-text-charcoal-dark {
+    color: rgba(44,53,64, 1);
+  }
+
+  .has-bg-khaki {
+    background-color:  rgba(199,177,130, 1);
+  }
+
+ #viewfinder {
+    background-image: url("../images/techBG-waves.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+h1, h2 {
+  line-height: 115%;
 }
+
+
+  .navbar img {
+    min-height: 50px !important;
+    max-height: 80px !important;
+  }
+
+  .navbar-item {
+    background-color: none !important;
+  }
+
+
+ .mae-light {
+	 font-family: "mae-variable", sans-serif;
+	 font-variation-settings: 'wght' 150;
+}
+ .mae-med {
+	 font-family: "mae-variable", sans-serif;
+	 font-variation-settings: 'wght' 300;
+}
+ .mae-semi {
+	 font-family: "mae-variable", sans-serif;
+	 font-variation-settings: 'wght' 500;
+}
+ .mae-bold {
+	 font-family: "mae-variable", sans-serif;
+	 font-variation-settings: 'wght' 700;
+}
+ .mae-black {
+	 font-family: "mae-variable", sans-serif;
+	 font-variation-settings: 'wght' 900;
+}
+/* Footer Styling */
+ .footer {
+	 background-color: rgba(44, 53, 64, 1);
+	 color: rgba(92, 110, 112, 1);
+	 font-family: "mae-variable", sans-serif;
+	 font-variation-settings: 'wght' 300;
+}
+ .ascii__art {
+	 font-family: "mae-variable", sans-serif;
+	 text-align: center;
+	 text-overflow: clip;
+}
+ .fade-out {
+	 background: linear-gradient(to right, rgba(255, 255, 255, 0), white, white, rgba(255, 255, 255, 0));
+	 padding: 20px;
+	/* Adjust padding as needed */
+}
+ .ticker {
+	 width: 100%;
+	 overflow: hidden;
+}
+ .ticker__content {
+	 display: inline-block;
+	 white-space: nowrap;
+	 animation: scroll 20s linear infinite;
+}
+ @keyframes scroll {
+	 0% {
+		 transform: translateX(100%);
+	}
+	 100% {
+		 transform: translateX(-100%);
+	}
+}
+ 
