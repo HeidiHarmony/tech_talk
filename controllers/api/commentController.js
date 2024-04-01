@@ -1,3 +1,5 @@
+const express = require('express'); // Import express
+const router = express.Router(); // Create a router instance
 const Comment = require('../../models/Comment');
 const withAuth = require('../../utils/auth');
 const errorHandler = require('../../utils/error');

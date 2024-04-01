@@ -1,4 +1,5 @@
 const User = require('../../models/User');
+const router = require('express').Router();
 const withAuth = require('../../utils/auth');
 const errorHandler = require('../../utils/error');
 
@@ -17,7 +18,7 @@ router.post('/signup', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}),
+});
 
 // Sign in route for registered users ----------------------------------------
 
@@ -55,7 +56,7 @@ router.post('/signin', async (req, res, next) => {
 
 // Get all users route -----------------------------------------
 
-router.get('/', async (req, res, next) => {
+router.get('/getAllUsers', async (req, res, next) => {
   try {
     const userData = await User.findAll();
 
@@ -67,7 +68,7 @@ router.get('/', async (req, res, next) => {
 
 // Get user by id route -----------------------------------------
 
-router.get('/:id', async (req, res, next) => {
+router.get('/getUser/:id', async (req, res, next) => {
   try {
     const userData = await User.findByPk(req.params.id);
 
@@ -84,7 +85,7 @@ router.get('/:id', async (req, res, next) => {
 
 // Update user by id route -----------------------------------------
 
-router.put('/:id', withAuth, async (req, res, next) => {
+router.put('/updateUser/:id', withAuth, async (req, res, next) => {
   try {
     const userData = await User.update(req.body, {
       where: {

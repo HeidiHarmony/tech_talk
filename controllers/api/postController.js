@@ -1,4 +1,7 @@
-const  Post = require('../../models/Post');
+const express = require('express'); // Import express
+const router = express.Router(); // Create a router instance
+const Post = require('../../models/Post');
+const User = require('../../models/User');
 const withAuth = require('../../utils/auth');
 const errorHandler = require('../../utils/error');
 
@@ -6,6 +9,7 @@ const errorHandler = require('../../utils/error');
 
 router.post('/newPostDraft', withAuth, async (req, res, next) => {
   try {
+    console.log(req.session.user_id);
     const newPost = await Post.create({
       ...req.body,
       user_id: req.session.user_id,
@@ -46,7 +50,7 @@ router.get('/allPosts', async (req, res, next) => {
 
 // Get a post by id route
 
-router.get('/post/:id', async (req, res, next) => {
+router.get('/getPost/:id', async (req, res, next) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [{ model: User }],
@@ -64,7 +68,7 @@ router.get('/post/:id', async (req, res, next) => {
 
 // Update a post by id route
 
-router.put('/post/:id', withAuth, async (req, res, next) => {
+router.put('/updatePost/:id', withAuth, async (req, res, next) => {
   try {
     const postData = await Post.update(req.body, {
       where: {
@@ -85,7 +89,7 @@ router.put('/post/:id', withAuth, async (req, res, next) => {
 
 // Delete a post by id route
 
-router.delete('/:id', withAuth, async (req, res, next) => {
+router.delete('/deletePost:/id', withAuth, async (req, res, next) => {
   try {
     const postData = await Post.destroy({
       where: {
@@ -107,7 +111,7 @@ router.delete('/:id', withAuth, async (req, res, next) => {
 
 // Publish a draft route
 
-router.put('/post/:id/publishDraft', withAuth,async (req, res, next) => {
+router.put('/publishPost/:id', withAuth,async (req, res, next) => {
   try {
     const postData = await Post.update(
       { status: 'published' },
@@ -132,7 +136,7 @@ router.put('/post/:id/publishDraft', withAuth,async (req, res, next) => {
 
 // Unpublish a post route
 
-router.put('/post/:id/unpublish', withAuth, async (req, res, next) => {
+router.put('/unpublishPost/:id', withAuth, async (req, res, next) => {
   try {
     const postData = await Post.update(
       { status: 'draft' },
