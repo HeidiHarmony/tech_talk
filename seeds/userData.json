@@ -1,17 +1,19 @@
 [
   {
-    "name": "Sal",
-    "email": "sal@hotmail.com",
-    "password": "password12345"
+    "name": "Dr. Vivian Virtual",
+    "email": "vrviv@hotmail.com",
+    "username": "vrviv",
+    "password": "qwerty12345"
   },
   {
-    "name": "Lernantino",
-    "email": "lernantino@gmail.com",
-    "password": "password12345"
+    "name": "Max Networker",
+    "email": "networkinnotworkin@gmail.com",
+    "username": "maxnetworker",
+    "password": "asdfgdh12345"
   },
   {
-    "name": "Amiko",
-    "email": "amiko2k20@aol.com",
-    "password": "password12345"
+    "name": "Digital Dan",
+    "email": "sellsellsell@aol.com",
+    "password": "zxcvbn12345"
   }
 ]
