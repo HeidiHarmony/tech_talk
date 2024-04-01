@@ -1,9 +1,10 @@
 const User = require('../../models/User');
 const withAuth = require('../../utils/auth');
+const errorHandler = require('../../utils/error');
 
 // Signup a new user route
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res, next) => {
   try {
     const userData = await User.create(req.body);
 
@@ -14,13 +15,13 @@ router.post('/signup', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    res.status(400).json(err);
+    next(err);
   }
 }),
 
 // Sign in route for registered users ----------------------------------------
 
-router.post('/signin', async (req, res) => {
+router.post('/signin', async (req, res, next) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
 
@@ -48,25 +49,25 @@ router.post('/signin', async (req, res) => {
     });
 
   } catch (err) {
-    res.status(400).json(err);
+    next(err);
   }
 });
 
 // Get all users route -----------------------------------------
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const userData = await User.findAll();
 
     res.status(200).json(userData);
   } catch (err) {
-    res.status(500).json(err);
+   next(err);
   }
 });
 
 // Get user by id route -----------------------------------------
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const userData = await User.findByPk(req.params.id);
 
@@ -77,13 +78,13 @@ router.get('/:id', async (req, res) => {
 
     res.status(200).json(userData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
 // Update user by id route -----------------------------------------
 
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', withAuth, async (req, res, next) => {
   try {
     const userData = await User.update(req.body, {
       where: {
@@ -98,7 +99,7 @@ router.put('/:id', withAuth, async (req, res) => {
 
     res.status(200).json(userData);
   } catch (err) {
-    res.status(500).json(err);
+   next(err);
   }
 });
 

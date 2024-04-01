@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+const errorHandler = require('../../utils/error');
 const PostController = require('../../controllers/postController');
 
 // Define routes for post-related requests

@@ -1,55 +1,52 @@
 const  Post = require('../../models/Post');
 const withAuth = require('../../utils/auth');
+const errorHandler = require('../../utils/error');
 
 // Create a new post and save as draft route
 
-router.post('/newPostDraft', withAuth, async (req, res) => {
+router.post('/newPostDraft', withAuth, async (req, res, next) => {
   try {
     const newPost = await Post.create({
       ...req.body,
       user_id: req.session.user_id,
       status: 'draft',
     });
-
     res.status(200).json(newPost);
   } catch (err) {
-    res.status(400).json(err);
-  }
-});
+    next(err);
+}});
 
 // Create a new post and publish route
 
-router.post('/newPostPublished', withAuth, async (req, res) => {
+router.post('/newPostPublished', withAuth, async (req, res, next) => {
   try {
     const newPost = await Post.create({
       ...req.body,
       user_id: req.session.user_id,
       status: 'published',
     });
-
     res.status(200).json(newPost);
   } catch (err) {
-    res.status(400).json(err);
+    next(err);
   }
 });
 
 // Get all posts route
 
-router.get('/allPosts', async (req, res) => {
+router.get('/allPosts', async (req, res, next) => {
   try {
     const postData = await Post.findAll({
       include: [{ model: User }],
     });
-
     res.status(200).json(postData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
 // Get a post by id route
 
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', async (req, res, next) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [{ model: User }],
@@ -59,16 +56,15 @@ router.get('/post/:id', async (req, res) => {
       res.status(404).json({ message: 'No post found with this id!' });
       return;
     }
-
     res.status(200).json(postData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
 // Update a post by id route
 
-router.put('/post/:id', withAuth, async (req, res) => {
+router.put('/post/:id', withAuth, async (req, res, next) => {
   try {
     const postData = await Post.update(req.body, {
       where: {
@@ -81,16 +77,15 @@ router.put('/post/:id', withAuth, async (req, res) => {
       res.status(404).json({ message: 'No post found with this id!' });
       return;
     }
-
     res.status(200).json(postData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
 // Delete a post by id route
 
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id', withAuth, async (req, res, next) => {
   try {
     const postData = await Post.destroy({
       where: {
@@ -106,13 +101,13 @@ router.delete('/:id', withAuth, async (req, res) => {
 
     res.status(200).json(postData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
 // Publish a draft route
 
-router.put('/post/:id/publishDraft', withAuth, async (req, res) => {
+router.put('/post/:id/publishDraft', withAuth,async (req, res, next) => {
   try {
     const postData = await Post.update(
       { status: 'published' },
@@ -131,13 +126,13 @@ router.put('/post/:id/publishDraft', withAuth, async (req, res) => {
 
     res.status(200).json(postData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
 
 // Unpublish a post route
 
-router.put('/post/:id/unpublish', withAuth, async (req, res) => {
+router.put('/post/:id/unpublish', withAuth, async (req, res, next) => {
   try {
     const postData = await Post.update(
       { status: 'draft' },
@@ -148,17 +143,14 @@ router.put('/post/:id/unpublish', withAuth, async (req, res) => {
         },
       }
     );
-
     if (!postData) {
       res.status(404).json({ message: 'No post found with this id!' });
       return;
     }
-
     res.status(200).json(postData);
   } catch (err) {
-    res.status(500).json(err);
+    next(err);
   }
 });
-
 
 module.exports = router;
