@@ -1,30 +1,52 @@
 const User = require('../../models/User');
-const router = require('express').Router();
+const bcrypt = require('bcrypt');
 const withAuth = require('../../utils/auth');
-const errorHandler = require('../../utils/error');
 
-// Signup a new user route
+// Sign up a new user route ----------------------------
 
-router.post('/signup', async (req, res, next) => {
-  try {
-    const userData = await User.create(req.body);
+  module.exports = {
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.status(200).json(userData);
-    });
-  } catch (err) {
-    next(err);
-  }
-});
+    signup: async function(req, res, next) {
+      try {
+        const { username, password } = req.body;
+  
+        // Validate input
+        if (!username || !password) {
+          return res.status(400).json({ error: 'Username and password are required' });
+        }
+  
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+  
+        const userData = await User.create({ username, password: hashedPassword });
+  
+        req.session.save(() => {
+          req.session.user_id = userData.id;
+          req.session.logged_in = true;
+  
+          res.status(200).json(userData);
+        });
+      } catch (err) {
+        if (err.name === 'ValidationError') {
+          res.status(400).json({ error: err.message });
+        } else {
+          next(err);
+        }
+      }
+    },
 
 // Sign in route for registered users ----------------------------------------
 
-router.post('/signin', async (req, res, next) => {
+signin: async function(req, res, next) {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    const userData = await User.findOne({ where: { email } });
 
     if (!userData) {
       res
@@ -33,7 +55,7 @@ router.post('/signin', async (req, res, next) => {
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
+    const validPassword = userData.checkPassword(password);
 
     if (!validPassword) {
       res
@@ -50,44 +72,81 @@ router.post('/signin', async (req, res, next) => {
     });
 
   } catch (err) {
-    next(err);
+    if (err.name === 'ValidationError') {
+      res.status(400).json({ message: err.message });
+    } else {
+      next(err);
+    }
   }
-});
+},
 
 // Get all users route -----------------------------------------
 
-router.get('/getAllUsers', async (req, res, next) => {
+getAllUsers: async function(req, res, next) {
   try {
     const userData = await User.findAll();
 
-    res.status(200).json(userData);
+    if (!userData) {
+      res.status(404).json({ message: 'No users found!' });
+      return;
+    }
+
+    // Only includes the needed properties
+    const users = userData.map((user) => ({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    }));
+
+    res.status(200).json(users);
   } catch (err) {
-   next(err);
+    if (err.name === 'ValidationError') {
+      res.status(400).json({ message: err.message });
+    } else {
+      next(err);
+    }
   }
-});
+},
 
 // Get user by id route -----------------------------------------
-
-router.get('/getUser/:id', async (req, res, next) => {
+getUser: async function(req, res, next) {
   try {
-    const userData = await User.findByPk(req.params.id);
+    const id = req.session.user_id;
+    const userData = await User.findByPk(id);
 
     if (!userData) {
       res.status(404).json({ message: 'No user found with this id!' });
       return;
     }
 
-    res.status(200).json(userData);
+    // Only includes the needed properties
+    const user = {
+      id: userData.id,
+      username: userData.username,
+      email: userData.email,
+    };
+
+    res.status(200).json(user);
   } catch (err) {
-    next(err);
+    if (err.name === 'ValidationError') {
+      res.status(400).json({ message: err.message });
+    } else {
+      next(err);
+    }
   }
-});
+},
 
 // Update user by id route -----------------------------------------
-
-router.put('/updateUser/:id', withAuth, async (req, res, next) => {
+updateUser: async function(req, res, next) {
   try {
-    const userData = await User.update(req.body, {
+    const { username, email } = req.body;
+
+    // Validate input
+    if (!username || !email) {
+      return res.status(400).json({ message: 'Username and email are required' });
+    }
+
+    const userData = await User.update({ username, email }, {
       where: {
         id: req.params.id,
       },
@@ -98,22 +157,39 @@ router.put('/updateUser/:id', withAuth, async (req, res, next) => {
       return;
     }
 
-    res.status(200).json(userData);
+    // Get the updated user data
+    const updatedUser = await User.findByPk(req.params.id);
+
+    // Pick only the properties you need
+    const user = {
+      id: updatedUser.id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      // Add any other properties you need
+    };
+
+    res.status(200).json(user);
   } catch (err) {
-   next(err);
+    if (err.name === 'ValidationError') {
+      res.status(400).json({ message: err.message });
+    } else {
+      next(err);
+    }
   }
-});
+},
 
 // Log out route for users -----------------------------------------
-
-router.post('/logout', (req, res) => {
+logout: async function(req, res, next) {
   if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(500).json({ message: 'Failed to logout.' });
+      } else {
+        res.status(204).end();
+      }
     });
   } else {
-    res.status(404).end();
+    res.status(401).end();
   }
-});
-
-module.exports = router;
+},
+};
