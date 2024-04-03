@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const withAuth = require('../../utils/auth');
-const CommentController = require('../../controllers/commentController');
+const CommentController = require('../../controllers/api/commentController');
 
 // Define routes for comment-related requests
 
-router.post('/newComment', withAuth, CommentController.createComment);
+router.post('/newComment', withAuth, CommentController.newComment);
 
 router.get('/getCommentsByPostId/:postId', withAuth, CommentController.getCommentsByPostId);
 

@@ -25,6 +25,7 @@ const bcrypt = require('bcrypt');
           req.session.logged_in = true;
   
           res.status(200).json(userData);
+          console.log("You are now logged in!");
         });
       } catch (err) {
         if (err.name === 'ValidationError') {

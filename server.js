@@ -4,7 +4,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./routes');
 const withAuth = require('./utils/auth');
-const errorHandler = require('./utils/errorHandler'); // Import errorHandler middleware
+const errorHandler = require('./utils/error'); // Import errorHandler middleware
 const helpers = require('./utils/helpers');
 
 const sequelize = require('./config/connection');

@@ -40,9 +40,10 @@ Post.init(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    // We will keep only the date of the most recent modification 
     date_modified: {
-    type: DataTypes.ARRAY(DataTypes.DATE),
-    allowNull: true,
+      type: DataTypes.DATE,
+      allowNull: true,
   }, 
   },
   {
