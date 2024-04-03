@@ -1,7 +1,8 @@
 // Routes for rendering views
 
 // Initialize express router
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
 // Route for rendering the home page
 router.get('/', (req, res) => {
