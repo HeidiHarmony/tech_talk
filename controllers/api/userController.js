@@ -1,6 +1,6 @@
 const User = require('../../models/User');
 const bcrypt = require('bcrypt');
-const withAuth = require('../../utils/auth');
+//const withAuth = require('../../utils/auth');
 
 // Sign up a new user route ----------------------------
 

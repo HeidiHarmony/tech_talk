@@ -1,17 +1,23 @@
 const router = require('express').Router();
 const withAuth = require('../../utils/auth');
-const errorHandler = require('../../utils/error');
-const PostController = require('../../controllers/postController');
+const PostController = require('../../controllers/api/postController');
 
 // Define routes for post-related requests
 
-router.post('/newPostDraft', withAuth, PostController.createPost);
-router.post('/newPostPublished', withAuth, PostController.createPost);
-router.get('/allPosts', PostController.getAllPosts);
-router.get('/post/:id', PostController.getPostById);
-router.put('/post/:id', withAuth, PostController.updatePostById);
-router.delete('/post/:id', withAuth, PostController.deletePostById);
-router.put('/post/:id/publishDraft', withAuth, PostController.updatePostById);
-router.put('/post/:id/unpublish', withAuth, PostController.updatePostById);
+router.post('/newPostDraft', withAuth, PostController.newPostDraft);
+
+router.post('/newPostPublished', withAuth, PostController.newPostPublished);
+
+router.get('/getAllPosts', PostController.getAllPosts);
+
+router.get('/getPostById/:id', PostController.getPostById);
+
+router.put('/updatePostById/:id', withAuth, PostController.updatePostById);
+
+router.delete('/deletePostById/:id', withAuth, PostController.deletePostById);
+
+router.put('/publishDraft/:id', withAuth, PostController.publishDraft);
+
+router.put('/unpublish/:id', withAuth, PostController.unpublish);
 
 module.exports = router;

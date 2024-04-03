@@ -1,13 +1,13 @@
-const express = require('express'); // Import express
-const router = express.Router(); // Create a router instance
 const Post = require('../../models/Post');
 const User = require('../../models/User');
-const withAuth = require('../../utils/auth');
-const errorHandler = require('../../utils/error');
+const { all } = require('../../routes/api/postRoutes');
+//const withAuth = require('../../utils/auth');
+// const errorHandler = require('../../utils/error');
 
+module.exports = {
 // Create a new post and save as draft route
 
-router.post('/newPostDraft', withAuth, async (req, res, next) => {
+newPostDraft: async function(req, res, next) {
   try {
     console.log(req.session.user_id);
     const newPost = await Post.create({
@@ -18,11 +18,12 @@ router.post('/newPostDraft', withAuth, async (req, res, next) => {
     res.status(200).json(newPost);
   } catch (err) {
     next(err);
-}});
+}
+},
 
 // Create a new post and publish route
 
-router.post('/newPostPublished', withAuth, async (req, res, next) => {
+newPostPublished: async function(req, res, next) {
   try {
     const newPost = await Post.create({
       ...req.body,
@@ -33,11 +34,11 @@ router.post('/newPostPublished', withAuth, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+},
 
 // Get all posts route
 
-router.get('/allPosts', async (req, res, next) => {
+getAllPosts: async function(req, res, next) {
   try {
     const postData = await Post.findAll({
       include: [{ model: User }],
@@ -46,11 +47,11 @@ router.get('/allPosts', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+},
 
 // Get a post by id route
 
-router.get('/getPost/:id', async (req, res, next) => {
+getPostById: async function(req, res, next) {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [{ model: User }],
@@ -64,11 +65,11 @@ router.get('/getPost/:id', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+},
 
 // Update a post by id route
 
-router.put('/updatePost/:id', withAuth, async (req, res, next) => {
+updatePostById: async function(req, res, next) {
   try {
     const postData = await Post.update(req.body, {
       where: {
@@ -85,11 +86,11 @@ router.put('/updatePost/:id', withAuth, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+},
 
 // Delete a post by id route
 
-router.delete('/deletePost:/id', withAuth, async (req, res, next) => {
+deletePostById: async function(req, res, next) {
   try {
     const postData = await Post.destroy({
       where: {
@@ -107,11 +108,11 @@ router.delete('/deletePost:/id', withAuth, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+},
 
 // Publish a draft route
 
-router.put('/publishPost/:id', withAuth,async (req, res, next) => {
+publishDraft: async function(req, res, next) {
   try {
     const postData = await Post.update(
       { status: 'published' },
@@ -132,11 +133,10 @@ router.put('/publishPost/:id', withAuth,async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+},
 
 // Unpublish a post route
-
-router.put('/unpublishPost/:id', withAuth, async (req, res, next) => {
+unpublish: async function(req, res, next) {
   try {
     const postData = await Post.update(
       { status: 'draft' },
@@ -155,6 +155,5 @@ router.put('/unpublishPost/:id', withAuth, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-module.exports = router;
+},
+};
