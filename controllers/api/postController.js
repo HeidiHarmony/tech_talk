@@ -1,6 +1,6 @@
 const Post = require('../../models/Post');
 const User = require('../../models/User');
-const { all } = require('../../routes/api/postRoutes');
+// const { all } = require('../../routes/api/postRoutes');
 //const withAuth = require('../../utils/auth');
 // const errorHandler = require('../../utils/error');
 

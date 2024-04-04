@@ -7,7 +7,7 @@
     "watch": "nodemon server.js",
     "start": "node server.js",
     "seed": "node seeds/seed.js",
-    "build-bulma": "sass --load-path=node_modules custom-bulma.scss custom-bulma.css",
+    "build-bulma": "sass --load-path=node_modules my-bulma-project.scss public/css/my-bulma-project.css",
     "apply-style": "npm run build-bulma -- --watch"
   },
   "keywords": [],

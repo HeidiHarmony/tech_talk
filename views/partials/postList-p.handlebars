@@ -1,10 +1,18 @@
 <ul>
   {{#each posts}}
     <li>
-      <a href="{{#if logged_in}}/post/{{this.id}}{{else}}#{{/if}}" class="post-link">
+    {{#if logged_in}}
+      <a href="/post/{{this.id}}" class="post-link">
         <h3>{{this.title}}</h3>
         <p>Author: {{this.User.username}} - Posted: {{this.date_created}}</p>
       </a>
+      {{/if}}
+    {{#else}}
+      <a href="/login" class="post-link">
+        <h3>{{this.title}}</h3>
+        <p>Author: {{this.User.username}} - Posted: {{this.date_created}}</p>
+      </a>
+    {{/else}}
     </li>
   {{/each}}
 </ul>

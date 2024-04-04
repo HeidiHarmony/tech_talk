@@ -9,15 +9,7 @@
               <p class="card-header-title is-size-4">Read what our community has to say!</p>
             </card-header>
             <card-content>
-              <ul class="blogpost_list">
-                {{#each posts}}
-                <li class="blogpost">
-                  <a href="/getAllPosts">
-                    <h3 class="is-size-5">{{this.username}} {{this.title}}  {{this.date_created}}</h3>
-                  </a>
-                  </li>
-                {{/each}}
-              </ul>
+             {{> postList-p }}
             </card-content>
         </div>
       </section>
