@@ -1,0 +1,23 @@
+<section class="columns">
+        <div class="column is-one-quarter px-5 py-6">
+          <h1 class="is-size-2 has-text-centered mb-4">Embark on a journey of digital discovery.</h1>
+          <h2 class="is-size-4 has-text-centered">Join our community, where minds converge, ideas flourish, and knowledge transforms. Together, let's shape the future of technology.</h2>
+        </div>
+        <div id="viewfinder" class="column is-three-quarters px-5 py-6">
+          <card>
+            <card-header>
+              <p class="card-header-title is-size-4">Read what our community has to say!</p>
+            </card-header>
+            <card-content>
+              <ul class="blogpost_list">
+                {{#each posts}}
+                <li class="blogpost">
+                  <a href="/getAllPosts">
+                    <h3 class="is-size-5">{{this.username}} {{this.title}}  {{this.date_created}}</h3>
+                  </a>
+                  </li>
+                {{/each}}
+              </ul>
+            </card-content>
+        </div>
+      </section>

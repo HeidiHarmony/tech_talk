@@ -23388,16 +23388,6 @@ font-variation-settings: "wght"
   font-variation-settings: "wght" 900;
 }
 
-/* navbar styling */
-.navbar img {
-  min-height: 50px !important;
-  max-height: 80px !important;
-}
-
-.navbar-item {
-  background-color: none !important;
-}
-
 /* Footer Styling */
 .footer {
   background-color: rgb(44, 53, 64);
