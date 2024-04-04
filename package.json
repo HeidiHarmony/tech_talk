@@ -6,7 +6,9 @@
   "scripts": {
     "watch": "nodemon server.js",
     "start": "node server.js",
-    "seed": "node seeds/seed.js"
+    "seed": "node seeds/seed.js",
+    "build-bulma": "sass --load-path=node_modules custom-bulma.scss custom-bulma.css",
+    "apply-style": "npm run build-bulma -- --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "mysql2": "^2.2.5",
+    "sass": "^1.74.1",
     "sequelize": "^6.3.5",
     "watch": "^0.13.0"
   },

@@ -1,51 +1,22 @@
-@import '~bulma/bulma';
-
-// test
-
-// COLOR -------------------------------------------------
-// Customize Bulma Color Variables
+@import url("https://use.typekit.net/ssi2tav.css");
 
 $grayed-cobalt: rgba(92,110,112, 1);
-$link: $grayed-cobalt;
-
 $charcoal-dark: rgba(44,53,64, 1);
-$dark: $charcoal-dark;
-
 $charcoal-mixer: rgba(83,83,83, 1);
-$info: $charcoal-mixer;
-
 $suede-green: rgba(125,140,129, 1);
-$primary:$suede-green;
-
 $khaki: rgba(199,177,130, 1);
-$success: $khaki;
-
-// Custom variants
-
-/* --bulma-COLOR-invert
---bulma-COLOR-light
---bulma-COLOR-light-invert
---bulma-COLOR-dark
---bulma-COLOR-dark-invert
---bulma-COLOR-soft
---bulma-COLOR-primary-bold
---bulam-COLOR-on-scheme 
-
-Also, values from 05-100, ie. 
---bulma-COLOR-75
---bulma-COLOR-40-invert*/
-
-// FONTS-------------------------------------------------
-
-/* Mae Adobe font
-font-family: "mae-variable", sans-serif;
-font-variation-settings: "wght" 
-100-900*/
-
-
 $customFontFamily: "mae-variable", sans-serif;
-  
 $family-sans-serif: $customFontFamily;
+
+@use "bulma/sass" with (
+  $link: $grayed-cobalt,
+  $dark: $charcoal-dark,
+  $info: $charcoal-mixer,
+  $primary: $suede-green,
+  $success: $khaki,
+  $family-sans-serif: $customFontFamily
+);
+
 
 .mae-light {
     font-family: "mae-variable", sans-serif;

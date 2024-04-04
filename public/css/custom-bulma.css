@@ -23347,22 +23347,6 @@ has-background-danger.is-hoverable:active {
   pointer-events: all !important;
 }
 
-/* --bulma-COLOR-invert
---bulma-COLOR-light
---bulma-COLOR-light-invert
---bulma-COLOR-dark
---bulma-COLOR-dark-invert
---bulma-COLOR-soft
---bulma-COLOR-primary-bold
---bulam-COLOR-on-scheme 
-
-Also, values from 05-100, ie. 
---bulma-COLOR-75
---bulma-COLOR-40-invert*/
-/* Mae Adobe font
-font-family: "mae-variable", sans-serif;
-font-variation-settings: "wght" 
-100-900*/
 .mae-light {
   font-family: "mae-variable", sans-serif;
   font-variation-settings: "wght" 150;
