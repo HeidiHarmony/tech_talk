@@ -13,9 +13,9 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar has-background-link" role="navigation" aria-label="main navigation">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
     <!-- Navbar brand -->
-    <div class="navbar-brand">
+    <div class="navbar-brand has-background-link">
       <a class="navbar-item" href="/">
       <img src="./images/white-on-transp.png" />
       </a>
@@ -27,9 +27,9 @@
       </a>
     </div> <!--closes navbar-brand-->
     <!-- Navbar menu -->
-    <div id="navbarLinks" class="navbar-menu">
+    <div id="navbarLinks" class="navbar-menu has-background-dark has-text-weight-weight-medium">
       <div class="navbar-start">
-        <a id="homeLink" class="button is-hoverable is-dark has-text-light" href="/" class="navbar-item">
+        <a id="homeLink" class="button is-hoverable is-dark has-text-weight-mediumref="/" class="navbar-item">
           <span class="icon"><i class="fa-solid fa-house"></i></span><span class="icon-text">Home</span>
         </a>
      </div>
@@ -37,17 +37,17 @@
       <div class="navbar-item">
         <div class="buttons">
           {{#if logged_in}}
-          <a href="/dashboard" class="button is-hoverable is-dark has-text-light"><span class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
+          <a href="/dashboard" class="button is-hoverable is-dark has-text-weight-mediumspan class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
          </a>|
         <hr class="navbar-divider">
-          <a href="/log-out" class="button is-hoverable is-dark has-text-light"><span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span><span class="icon-text">Log out</span>
+          <a href="/log-out" class="button is-hoverable is-dark has-text-weight-mediumspan class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span><span class="icon-text">Log out</span>
           </a>|
           {{else}}
           <!-- Figure out how to handle cookies -->
-            <a href="/signin-signup" class="button is-hoverable is-dark has-text-light"><span class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
+            <a href="/signUpIn" class="button is-hoverable is-dark has-text-weight-mediumspan class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
             </a> 
           <hr class="navbar-divider">
-            <a href="/signin-signup" class="button is-hoverable is-dark has-text-light"><span class="icon"><i class="fa-regular fa-user"></i></i></span><span class="icon-text">Sign in | Sign Up</span>
+            <a href="/signUpIn" class="button is-hoverable is-dark has-text-weight-medium"><span class="icon"><i class="fa-regular fa-user"></i></i></span><span class="icon-text">Sign in | Sign Up</span>
             </a> 
           {{/if}}
         </div>
@@ -59,6 +59,15 @@
       <!-- Views: /home, /signUpIn, /signInOnly, /post, /dashboard, /newPost -->
       {{{ body }}}
     </main>
+    <!--Remove this later -->
+      <div>
+    <button class="button is-link">Link</button>
+<button class="button is-info">Info</button>
+<button class="button is-dark">Dark</button>
+<button class="button is-primary">Primary</button>
+<button class="button is-success">Success</button>
+<button class="button is-ghost">Ghost</button>
+  </div>
 
     <footer>
       {{#if logged_in}}

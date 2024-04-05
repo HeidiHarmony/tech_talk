@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
@@ -41,6 +42,33 @@ app.use(setLocals); // Add setLocals middleware to all routes
 
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
+
+// Register the partials
+hbs.handlebars.registerPartial(
+  'postList-p',
+  fs.readFileSync(path.join(__dirname, '/views/partials/postList-p.handlebars'), 'utf8')
+);
+
+hbs.handlebars.registerPartial(
+  'footerScroll-p',
+  fs.readFileSync(path.join(__dirname, '/views/partials/footerScroll-p.handlebars'), 'utf8')
+);
+
+hbs.handlebars.registerPartial(
+  'footerStatic-p',
+  fs.readFileSync(path.join(__dirname, '/views/partials/footerStatic-p.handlebars'), 'utf8')
+);
+
+hbs.handlebars.registerPartial(
+  'newPost-p',
+  fs.readFileSync(path.join(__dirname, '/views/partials/newPost-p.handlebars'), 'utf8')
+);
+
+hbs.handlebars.registerPartial(
+  'showPost-p',
+  fs.readFileSync(path.join(__dirname, '/views/partials/showPost-p.handlebars'), 'utf8')
+);
+
 app.set('view engine', 'handlebars');
 
 app.use(routes);
