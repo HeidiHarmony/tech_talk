@@ -29,7 +29,7 @@
     <!-- Navbar menu -->
     <div id="navbarLinks" class="navbar-menu has-background-dark has-text-weight-weight-medium">
       <div class="navbar-start">
-        <a id="homeLink" class="button is-hoverable is-dark has-text-weight-mediumref="/" class="navbar-item">
+        <a id="homeLink" class="button is-hoverable is-dark has-text-weight-bold" class="navbar-item">
           <span class="icon"><i class="fa-solid fa-house"></i></span><span class="icon-text">Home</span>
         </a>
      </div>
@@ -37,17 +37,17 @@
       <div class="navbar-item">
         <div class="buttons">
           {{#if logged_in}}
-          <a href="/dashboard" class="button is-hoverable is-dark has-text-weight-mediumspan class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
+          <a href="/dashboard" class="button is-hoverable is-dark has-text-weight-bold"><span class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
          </a>|
         <hr class="navbar-divider">
-          <a href="/log-out" class="button is-hoverable is-dark has-text-weight-mediumspan class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span><span class="icon-text">Log out</span>
+          <a href="/log-out" class="button is-hoverable is-dark has-text-weight-bold"><span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span><span class="icon-text">Log out</span>
           </a>|
           {{else}}
           <!-- Figure out how to handle cookies -->
-            <a href="/signUpIn" class="button is-hoverable is-dark has-text-weight-mediumspan class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
+            <a href="/signUpIn" class="button is-hoverable is-dark has-text-weight-bold"><span class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
             </a> 
           <hr class="navbar-divider">
-            <a href="/signUpIn" class="button is-hoverable is-dark has-text-weight-medium"><span class="icon"><i class="fa-regular fa-user"></i></i></span><span class="icon-text">Sign in | Sign Up</span>
+            <a href="/signUpIn" class="button is-hoverable is-dark has-text-weight-bold"><span class="icon"><i class="fa-regular fa-user"></i></i></span><span class="icon-text">Sign in | Sign Up</span>
             </a> 
           {{/if}}
         </div>

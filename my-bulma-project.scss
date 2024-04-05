@@ -44,17 +44,39 @@ font-variation-settings: 'wght' 900;
 }
 
 /* navbar styling */
+
 .navbar img {
   min-height: 50px !important;
   max-height: 80px !important;
 }
 
-
-
 .navbar-item {
-
   background-color: none !important;
+}
 
+/* Form styling */
+
+input {
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: 'wght' 300;
+  width: fit-content;
+}
+
+form label {
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: 'wght' 500;
+  color: white;
+}
+
+form .button {
+  margin: 1em;
+  font-variation-settings: 'wght' 600;
+}
+
+#signupdiv {
+  background-image: url('/images/techBG-pixelated.jpg');
+  background-position: bottom right;
+  background-size: cover;
 }
 
 /* Footer Styling */
