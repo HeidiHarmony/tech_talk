@@ -20,7 +20,7 @@ Post.init(
       },
     },
     title: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(125),
       allowNull: false,
     },
     content: {
@@ -49,8 +49,8 @@ Post.init(
   {
     hooks: {
       beforeValidate: (post) => {
-        const minWords = 100;
-        const maxWords = 1500; // Example maximum word count
+        const minWords = 50;
+        const maxWords = 200; // Example maximum word count
         const wordCount = post.content.split(/\s+/).length;
   
         if (wordCount < minWords || wordCount > maxWords) {

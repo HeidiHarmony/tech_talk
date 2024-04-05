@@ -29,7 +29,7 @@ Comment.init(
     },
     // Check this client side
     comment: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(1000),
       allowNull: false,
     },
     date_created: {
