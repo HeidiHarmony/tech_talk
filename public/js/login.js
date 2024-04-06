@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const signupForm = document.querySelector('#signup-form');
   
   // Add an event listener for the 'submit' event
-  signupForm.addEventListener('submit', signinFormHandler);
+  signupForm.addEventListener('submit', signupFormHandler);
   });
 
 const signupFormHandler = async (event) => {
@@ -69,11 +69,3 @@ const signupFormHandler = async (event) => {
     }
   }
 };
-
-document
-  .querySelector('.signin-form')
-  .addEventListener('submit', signinFormHandler);
-
-document
-  .querySelector('.signup-form')
-  .addEventListener('submit', signupFormHandler);

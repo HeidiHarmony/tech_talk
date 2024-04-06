@@ -29,7 +29,7 @@
     <!-- Navbar menu -->
     <div id="navbarLinks" class="navbar-menu has-background-dark has-text-weight-weight-medium">
       <div class="navbar-start">
-        <a id="homeLink" class="button is-hoverable is-dark has-text-weight-bold" class="navbar-item">
+        <a id="homeLink" class="button is-hoverable is-dark has-text-weight-bold" class="navbar-item ml-5">
           <span class="icon"><i class="fa-solid fa-house"></i></span><span class="icon-text">Home</span>
         </a>
      </div>
@@ -81,8 +81,11 @@
 
   <!-- Render script for logged in users only -->
   {{#if logged_in}}
-  <script src="/js/logout.js"></script>
+  <script src="./js/logout.js"></script>
   {{/if}}
+  {{#else}}
+  <script src="./js/login.js"></script>
+  {{/else}}
 
   <script src="https://kit.fontawesome.com/76aa510a07.js" crossorigin="anonymous"></script>
 </body>
