@@ -22470,15 +22470,18 @@ has-background-danger.is-hoverable:active {
 }
 
 /* Form styling */
-input {
+form input {
   font-family: "mae-variable", sans-serif;
-  font-variation-settings: "wght" 300;
-  width: fit-content;
+  font-variation-settings: "wght" 500;
+  width: 75%;
+  max-width: 500px;
+  min-width: 100px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 form label {
   font-family: "mae-variable", sans-serif;
-  font-variation-settings: "wght" 500;
+  font-variation-settings: "wght" 600;
   color: white;
 }
 
@@ -22488,7 +22491,7 @@ form .button {
 }
 
 #signupdiv {
-  background-image: url("/images/techBG-pixelated.jpg");
+  background-image: url("/images/laptopBG.jpg");
   background-position: bottom right;
   background-size: cover;
 }
@@ -22527,6 +22530,17 @@ form .button {
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+@media only screen and (max-width: 767px) {
+  #hello {
+    background-image: url("/images/hello.png");
+    background-position: bottom right;
+    background-size: 50%;
+    background-repeat: no-repeat;
+  }
+  #hello input {
+    width: 50%;
   }
 }
 
