@@ -14,10 +14,16 @@ router.get('/signUpIn', (req, res) => {
   res.render('signUpIn'); // Render the signUpIn view
 });
 
-// Route for rendering the signIn view page
-router.get('/signIn', (req, res) => {
-  res.render('signIn'); // Render the signIn view
+/* // Route for redirecting to dashboard view page after successful sign in
+router.get('/signin', (req, res) => {
+  res.render('dashboard'); // Render the signIn view
 });
+
+// Route for redirecting to dashboard view page after successful sign up
+router.get('/signup', (req, res) => {
+  res.render('dashboard'); // Render the signIn view
+}); */
+
 
 // Route for rendering the dashboard view page
 router.get('/dashboard', (req, res) => {

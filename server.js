@@ -3,9 +3,9 @@ const fs = require('fs');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser'); // Add body-parser middleware
 const setLocals = require('./utils/setLocals');
 const routes = require('./routes');
-const withAuth = require('./utils/auth');
 const errorHandler = require('./utils/error'); // Import errorHandler middleware
 const helpers = require('./utils/helpers');
 
@@ -34,11 +34,11 @@ const sess = {
 };
 
 app.use(session(sess));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // Use body-parser middleware to parse JSON data
+app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(setLocals); // Add setLocals middleware to all routes
+// app.use(setLocals); // Add setLocals middleware to all routes
 
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);

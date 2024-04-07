@@ -7,29 +7,45 @@ const bcrypt = require('bcrypt');
   module.exports = {
 
     signup: async function(req, res, next) {
+
       try {
-        const { username, password } = req.body;
+        const { name, email, username, password } = req.body;
+
+        // Log the received request body
+    console.log('Received sign-up request:', req.body);
   
         // Validate input
-        if (!username || !password) {
-          return res.status(400).json({ error: 'Username and password are required' });
+        if (!name || !email || !username || !password) {
+          console.error('Validation failed: Required fields are missing');
+          return res.status(400).json({ error: 'All fields are required' });
         }
   
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Log hashed password
+    console.log('Hashed password:', hashedPassword);
+
+     // Create a new user
+        const userData = await User.create({ name, email, username, password: hashedPassword });
+
+        // Log successful sign-up
+    console.log('User signed up successfully:', userData);
   
-        const userData = await User.create({ username, password: hashedPassword });
-  
-        req.session.save(() => {
+    // Set session data
           req.session.user_id = userData.id;
           req.session.logged_in = true;
   
           res.status(200).json(userData);
           console.log("You are now logged in!");
-        });
+
+          res.redirect('/dashboard');
+
       } catch (err) {
+        console.error('Error occurred during sign-up:', err);
         if (err.name === 'ValidationError') {
           res.status(400).json({ error: err.message });
+
         } else {
           next(err);
         }
