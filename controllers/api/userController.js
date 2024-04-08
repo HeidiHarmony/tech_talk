@@ -65,46 +65,40 @@ test: async function(req, res) {
 
 signin: async function(req, res, next) {
   try {
-    const { email, password } = req.body;
-
-    // Validate input
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
-    }
-
-    // Retrieve the user from the database based on email
-    const userData = await User.findOne({ where: { email } });
+    // Find the user in the database based on the provided email
+    const userData = await User.findOne({ where: { email: req.body.email } });
 
     // Check if a user with the provided email exists
     if (!userData) {
-      return res.status(400).json({ message: 'Email not found, please try again' });
+      return res.status(400).json({ message: 'Incorrect email or password, please try again' });
     }
 
-    // Compare the hashed input password with the stored hashed password
-    bcrypt.compare(password, userData.password, (err, result) => {
+    // Compare the submitted password with the hashed password stored in the database
+    bcrypt.compare(req.body.password, userData.password, async (err, result) => {
       if (err) {
         // Handle error
         return next(err);
-      } else if (result) {
+      }
+
+      if (result) {
         // Passwords match, proceed with authentication
 
         // Set session data
         req.session.user_id = userData.id;
         req.session.logged_in = true;
-      
+
+        await req.session.save(); // Save the session before sending the response
+
         return res.json({ user: userData, message: 'You are now logged in!' });
       } else {
         // Passwords don't match, reject the sign-in attempt
-        return res.status(400).json({ message: 'This is not the password we are looking for, please try again' });
+        return res.status(400).json({ message: 'Incorrect email or password, please try again' });
       }
     });
-
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(400).json({ message: err.message });
-    } else {
-      next(err);
-    }
+    // Handle any other errors
+    console.error('Error occurred during sign-in:', err);
+    res.status(500).json({ message: 'Internal server error' });
   }
 },
 
