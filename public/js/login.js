@@ -1,3 +1,17 @@
+import { BASE_URL } from './config.js';
+
+console.log(BASE_URL);
+
+// test
+const serverTest = document.querySelector('#server-test'); // button being used for testing the server connection
+serverTest.addEventListener('click', () => {
+
+fetch('${BASE_URL}/test')
+    .then(response => response.text())
+    .then(message => console.log('Response from backend:', message))
+    .catch(error => console.error('Error:', error));
+});
+
 // Purpose: Handle the signin and signup forms
 
 //  signinFormHandler: Collect values from the signin form and send a POST request to the API endpoint
@@ -24,7 +38,7 @@ const signinFormHandler = async (event) => {
   if (email && password) {
     console.log('fetching the signin route');
     // Send a POST request to the API endpoint
-    const response = await fetch('/signin', {
+    const response = await fetch('${BASE_URL}/signin', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -47,16 +61,22 @@ const signupFormHandler = async (event) => {
   event.preventDefault();
 
   const name = document.querySelector('#name-signup').value.trim();
+  console.log('name:', name);
   const email = document.querySelector('#email-signup').value.trim();
+  console.log('email:', email);
   const username = document.querySelector('#username-signup').value.trim();
+  console.log('username:', username);
   const password = document.querySelector('#password-signup').value.trim();
+  console.log('password was collected');
   const passwordConfirm = document.querySelector('#password-confirm').value.trim();
+  console.log('password confirmation was collected');
 
   if (password !== passwordConfirm) {
     alert('Passwords do not match');
     return;
   } else if (name && email && username && password) {
-    const response = await fetch('/users/signup', {
+    console.log('fetching the signup route');
+    const response = await fetch('/api/users/signup', {
       method: 'POST',
       body: JSON.stringify({ name, email, username, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -65,6 +85,7 @@ const signupFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
+      console.log('Didn\'t make it to the dashboard')
       alert(response.statusText);
     }
   }
@@ -72,7 +93,7 @@ const signupFormHandler = async (event) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   // Get the form element
-  const signupForm = document.querySelector('#signup-form');
+  const signupForm = document.getElementById('signup-form');
   
   // Add an event listener for the 'submit' event
   signupForm.addEventListener('submit', signupFormHandler);

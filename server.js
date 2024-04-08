@@ -1,10 +1,11 @@
+require('dotenv').config(); 
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser'); // Add body-parser middleware
-const setLocals = require('./utils/setLocals');
+// const setLocals = require('./utils/setLocals');
 const routes = require('./routes');
 const errorHandler = require('./utils/error'); // Import errorHandler middleware
 const helpers = require('./utils/helpers');

@@ -3,6 +3,9 @@ const router = express.Router();
 const withAuth = require('../../utils/auth');
 const UserController = require('../../controllers/api/userController');
 
+// test route
+router.get('/test', UserController.test);
+
 // Define routes for user-related requests
 
 router.post('/signup', UserController.signup); // Sign up a new user

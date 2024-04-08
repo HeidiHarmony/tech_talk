@@ -1,10 +1,16 @@
-const User = require('../../models/User');
+const { User } = require('../../models');
 const bcrypt = require('bcrypt');
-//const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth');
+
+module.exports = {
+
+// Test route -----------------------------------------
+
+test: async function(req, res) {
+  res.send('Backend is up and running!');
+},
 
 // Sign up a new user route ----------------------------
-
-  module.exports = {
 
     signup: async function(req, res, next) {
 
@@ -36,7 +42,6 @@ const bcrypt = require('bcrypt');
           req.session.user_id = userData.id;
           req.session.logged_in = true;
   
-          res.status(200).json(userData);
           console.log("You are now logged in!");
 
           res.redirect('/dashboard');
