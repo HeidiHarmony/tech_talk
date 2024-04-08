@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Route for rendering the home page
 router.get('/', (req, res) => {
-  res.render('home'); // Render the home view
+  res.render('home', { logged_in: req.session.logged_in }); // Render the home view
 });
 
 // Route for rendering the signUpIn view page

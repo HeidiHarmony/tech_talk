@@ -2,15 +2,15 @@ import { BASE_URL } from './config.js';
 
 console.log(BASE_URL);
 
-// test
+/* // test
 const serverTest = document.querySelector('#server-test'); // button being used for testing the server connection
 serverTest.addEventListener('click', () => {
 
-fetch('${BASE_URL}/test')
+fetch('/api/users/test')
     .then(response => response.text())
     .then(message => console.log('Response from backend:', message))
     .catch(error => console.error('Error:', error));
-});
+}); */
 
 // Purpose: Handle the signin and signup forms
 
@@ -18,13 +18,14 @@ fetch('${BASE_URL}/test')
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM content loaded');
-// Get the form element
-const signinForm = document.querySelector('#signin-form');
+  // Get the form element
+  const signinForm = document.querySelector('#signin-form');
+  console.log(signinForm); // Add this line to check if the form element is successfully selected
 
-// Add an event listener for the 'submit' event
-signinForm.addEventListener('submit', signinFormHandler);
+  // Add an event listener for the 'submit' event
+  signinForm.addEventListener('submit', signinFormHandler);
+  console.log('Awaiting submit event...');
 });
-console.log('Awaiting submit event...');
 
 const signinFormHandler = async (event) => {
   event.preventDefault();
@@ -38,7 +39,7 @@ const signinFormHandler = async (event) => {
   if (email && password) {
     console.log('fetching the signin route');
     // Send a POST request to the API endpoint
-    const response = await fetch('${BASE_URL}/signin', {
+    const response = await fetch('/api/users/signin', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -51,6 +52,7 @@ const signinFormHandler = async (event) => {
       console.log('you made it to the dashboard');
     } else {
       alert(response.statusText);
+      console.log('Unable to log you in. Tough break, kiddo.');
     }
   }
 };

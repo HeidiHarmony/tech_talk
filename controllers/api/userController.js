@@ -41,6 +41,9 @@ test: async function(req, res) {
     // Set session data
           req.session.user_id = userData.id;
           req.session.logged_in = true;
+          req.session.username = userData.username;
+          req.session.email = userData.email;
+          req.session.name = userData.name;
   
           console.log("You are now logged in!");
 
@@ -59,6 +62,7 @@ test: async function(req, res) {
 
 // Sign in route for registered users ----------------------------------------
 
+
 signin: async function(req, res, next) {
   try {
     const { email, password } = req.body;
@@ -68,29 +72,31 @@ signin: async function(req, res, next) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
+    // Retrieve the user from the database based on email
     const userData = await User.findOne({ where: { email } });
 
+    // Check if a user with the provided email exists
     if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
+      return res.status(400).json({ message: 'Email not found, please try again' });
     }
 
-    const validPassword = userData.checkPassword(password);
+    // Compare the hashed input password with the stored hashed password
+    bcrypt.compare(password, userData.password, (err, result) => {
+      if (err) {
+        // Handle error
+        return next(err);
+      } else if (result) {
+        // Passwords match, proceed with authentication
 
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+        // Set session data
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
       
-      res.json({ user: userData, message: 'You are now logged in!' });
+        return res.json({ user: userData, message: 'You are now logged in!' });
+      } else {
+        // Passwords don't match, reject the sign-in attempt
+        return res.status(400).json({ message: 'This is not the password we are looking for, please try again' });
+      }
     });
 
   } catch (err) {
@@ -101,6 +107,7 @@ signin: async function(req, res, next) {
     }
   }
 },
+
 
 // Get all users route -----------------------------------------
 
