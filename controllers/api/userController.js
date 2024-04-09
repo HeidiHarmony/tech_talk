@@ -64,43 +64,40 @@ test: async function(req, res) {
 
 
 signin: async function(req, res, next) {
+  console.log('Welcome to sign-in. Good luck!');
   try {
     // Find the user in the database based on the provided email
     const userData = await User.findOne({ where: { email: req.body.email } });
+    console.log('userData:', userData);
 
     // Check if a user with the provided email exists
     if (!userData) {
-      return res.status(400).json({ message: 'Incorrect email or password, please try again' });
+      return res.status(400).json({ message: 'Email not found. Boo.' });
     }
 
     // Compare the submitted password with the hashed password stored in the database
-    bcrypt.compare(req.body.password, userData.password, async (err, result) => {
-      if (err) {
-        // Handle error
-        return next(err);
-      }
+    const isPasswordCorrect = await bcrypt.compare(req.body.password, userData.password);
 
-      if (result) {
-        // Passwords match, proceed with authentication
+    if (isPasswordCorrect) {
+      // Passwords match, proceed with authentication
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+      console.log("User " + userData.username + " is now logged in!");
 
-        // Set session data
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
+      await req.session.save(); // Save the session before sending the response
 
-        await req.session.save(); // Save the session before sending the response
-
-        return res.json({ user: userData, message: 'You are now logged in!' });
-      } else {
-        // Passwords don't match, reject the sign-in attempt
-        return res.status(400).json({ message: 'Incorrect email or password, please try again' });
-      }
-    });
+      return res.json({ user: userData, message: 'You are now logged in!' });
+    } else {
+      // Passwords don't match, reject the sign-in attempt
+      return res.status(400).json({ message: 'Your password is incorrect. Please try again.' });
+    }
   } catch (err) {
     // Handle any other errors
     console.error('Error occurred during sign-in:', err);
     res.status(500).json({ message: 'Internal server error' });
   }
 },
+
 
 
 // Get all users route -----------------------------------------

@@ -2,16 +2,6 @@ import { BASE_URL } from './config.js';
 
 console.log(BASE_URL);
 
-/* // test
-const serverTest = document.querySelector('#server-test'); // button being used for testing the server connection
-serverTest.addEventListener('click', () => {
-
-fetch('/api/users/test')
-    .then(response => response.text())
-    .then(message => console.log('Response from backend:', message))
-    .catch(error => console.error('Error:', error));
-}); */
-
 // Purpose: Handle the signin and signup forms
 
 //  signinFormHandler: Collect values from the signin form and send a POST request to the API endpoint
@@ -34,7 +24,7 @@ const signinFormHandler = async (event) => {
   const email = document.querySelector('#email-signin').value.trim();
   console.log('email:', email);
   const password = document.querySelector('#password-signin').value.trim();
-  console.log('password collected');
+  console.log('password collected:', password);
 
   if (email && password) {
     console.log('fetching the signin route');
