@@ -30,7 +30,7 @@ test: async function(req, res) {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Log hashed password
-    console.log('Hashed password:', hashedPassword);
+    console.log('Password:', password, 'Hashed password:', hashedPassword);
 
      // Create a new user
         const userData = await User.create({ name, email, username, password: hashedPassword });
@@ -39,11 +39,16 @@ test: async function(req, res) {
     console.log('User signed up successfully:', userData);
   
     // Set session data
-          req.session.user_id = userData.id;
-          req.session.logged_in = true;
-          req.session.username = userData.username;
-          req.session.email = userData.email;
-          req.session.name = userData.name;
+        req.session.user_id = userData.id;
+         console.log('User ID:', req.session.user_id);
+        req.session.logged_in = true;
+         console.log('User logged in:', req.session.logged_in);
+        req.session.username = userData.username;
+         console.log('Username:', req.session.username);
+        req.session.email = userData.email;
+         console.log('Email:', req.session.email);
+        req.session.name = userData.name;
+         console.log('Name:', req.session.name);
   
           console.log("You are now logged in!");
 
@@ -63,7 +68,7 @@ test: async function(req, res) {
 // Sign in route for registered users ----------------------------------------
 
 
-signin: async function(req, res, next) {
+signin: async function(req, res, _next) {
   console.log('Welcome to sign-in. Good luck!');
   try {
     // Find the user in the database based on the provided email
@@ -79,8 +84,10 @@ signin: async function(req, res, next) {
     const isPasswordCorrect = await bcrypt.compare(req.body.password, userData.password);
 
     if (isPasswordCorrect) {
+      console.log('It\'s a match!');
       // Passwords match, proceed with authentication
       req.session.user_id = userData.id;
+      console.log('User ID:', req.session.user_id);
       req.session.logged_in = true;
       console.log("User " + userData.username + " is now logged in!");
 
@@ -97,6 +104,7 @@ signin: async function(req, res, next) {
     res.status(500).json({ message: 'Internal server error' });
   }
 },
+
 
 
 
@@ -199,7 +207,7 @@ updateUser: async function(req, res, next) {
 },
 
 // Log out route for users -----------------------------------------
-logout: async function(req, res, next) {
+logout: async function(req, res, _next) {
   if (req.session.logged_in) {
     req.session.destroy((err) => {
       if (err) {

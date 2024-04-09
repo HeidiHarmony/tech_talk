@@ -1,8 +1,11 @@
-require('dotenv').config(); 
-const path = require('path');
-const fs = require('fs');
-const express = require('express');
-const session = require('express-session');
+require('dotenv').config(); // Import and configure dotenv package
+
+const path = require('path'); 
+const fs = require('fs'); 
+const express = require('express'); 
+const session = require('express-session'); 
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sequelize = require('./config/connection');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser'); // Add body-parser middleware
 // const setLocals = require('./utils/setLocals');
@@ -10,31 +13,30 @@ const routes = require('./routes');
 const errorHandler = require('./utils/error'); // Import errorHandler middleware
 const helpers = require('./utils/helpers');
 
-const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
 const app = express();
 
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
 const PORT = process.env.PORT || 3001;
+
 const sess = {
   secret: process.env.SESSION_SECRET,
   cookie: {
-    maxAge: 300000,
+    maxAge: 2 * 60 * 60 * 1000, // 2 hours
     httpOnly: true,
     secure: false,
     sameSite: 'strict',
   },
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new SequelizeStore({
     db: sequelize
   })
 };
 
 app.use(session(sess));
+
 app.use(bodyParser.json()); // Use body-parser middleware to parse JSON data
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(express.static(path.join(__dirname, 'public')));

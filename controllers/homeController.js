@@ -4,11 +4,11 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-     // Check if a user is logged in
-     let user;
-     if (req.session && req.session.user) {
-       user = req.session.user;
-     }
+    // Check if a user is logged in
+    let user;
+    if (req.session && req.session.user) {
+      user = req.session.user;
+    }
 
     // Get all posts and JOIN with user data
     const posts = await Post.findAll({
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     const serializedPosts = posts.map((post) => post.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('home', { posts }, {
+    res.render('home', {
       posts: serializedPosts,
       logged_in: req.session.logged_in,
       user: req.session.user,
