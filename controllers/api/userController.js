@@ -25,15 +25,9 @@ test: async function(req, res) {
           console.error('Validation failed: Required fields are missing');
           return res.status(400).json({ error: 'All fields are required' });
         }
-  
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Log hashed password
-    console.log('Password:', password, 'Hashed password:', hashedPassword);
 
      // Create a new user
-        const userData = await User.create({ name, email, username, password: hashedPassword });
+        const userData = await User.create({ name, email, username, password });
 
         // Log successful sign-up
     console.log('User signed up successfully:', userData);
@@ -104,8 +98,6 @@ signin: async function(req, res, _next) {
     res.status(500).json({ message: 'Internal server error' });
   }
 },
-
-
 
 
 // Get all users route -----------------------------------------
