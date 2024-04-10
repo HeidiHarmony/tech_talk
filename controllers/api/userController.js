@@ -83,6 +83,7 @@ signin: async function(req, res, _next) {
       req.session.user_id = userData.id;
       console.log('User ID:', req.session.user_id);
       req.session.logged_in = true;
+      console.log('Logged in?', req.session.logged_in);
       console.log("User " + userData.username + " is now logged in!");
 
       await req.session.save(); // Save the session before sending the response
