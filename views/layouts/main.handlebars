@@ -37,10 +37,12 @@
       <div class="navbar-item">
         <div class="buttons">
           {{#if logged_in}}
-          <a href="/dashboard" class="button is-hoverable is-dark has-text-weight-bold"><span class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
+          <a href="/dashboard" class="button is-hoverable is-dark has-text-weight-bold">
+          <span class="icon"><i class="fa-regular fa-keyboard"></i></span><span class="icon-text">Dashboard</span>
          </a>|
         <hr class="navbar-divider">
-          <a id="logout" class="button is-hoverable is-dark has-text-weight-bold"><span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span><span class="icon-text">Log out</span>
+          <a href="#" id="logout"  class="button is-hoverable is-dark has-text-weight-bold">
+            <span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span><span class="icon-text">Log out</span>
           </a>|
           {{else}}
           <!-- Figure out how to handle cookies -->
