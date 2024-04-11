@@ -39,14 +39,10 @@ test: async function(req, res) {
          console.log('User logged in:', req.session.logged_in);
         req.session.username = userData.username;
          console.log('Username:', req.session.username);
-        req.session.email = userData.email;
-         console.log('Email:', req.session.email);
-        req.session.name = userData.name;
-         console.log('Name:', req.session.name);
   
           console.log("You are now logged in!");
 
-          res.redirect('/dashboard');
+          res.redirect('/dashboard', { user: userData, message: 'You are now logged in!' });
 
       } catch (err) {
         console.error('Error occurred during sign-up:', err);
@@ -88,7 +84,7 @@ signin: async function(req, res, _next) {
 
       await req.session.save(); // Save the session before sending the response
 
-      return res.json({ user: userData, message: 'You are now logged in!' });
+      return res.redirect('/dashboard');
     } else {
       // Passwords don't match, reject the sign-in attempt
       return res.status(400).json({ message: 'Your password is incorrect. Please try again.' });
@@ -99,6 +95,7 @@ signin: async function(req, res, _next) {
     res.status(500).json({ message: 'Internal server error' });
   }
 },
+
 
 
 // Get all users route -----------------------------------------

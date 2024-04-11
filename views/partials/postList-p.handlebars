@@ -1,18 +1,18 @@
+<p>This is the post list partial</p>
+<div id="show-all-posts">
+ {{!--  
 <ul>
-  {{#each posts}}
+  {{#each posts as |post| }}
     <li>
-    {{#if logged_in}}
-      <a href="/post/{{this.id}}" class="post-link">
-        <h3>{{this.title}}</h3>
-        <p>Author: {{this.User.username}} - Posted: {{this.date_created}}</p>
-      </a>
+      {{#if logged_in}}
+        <a href="/api/post/getPostById/:id" class="post-link">
+      {{else}}
+        <a href="/signUpIn" class="post-link">
       {{/if}}
-    {{#else}}
-      <a href="/login" class="post-link">
-        <h3>{{this.title}}</h3>
-        <p>Author: {{this.User.username}} - Posted: {{this.date_created}}</p>
-      </a>
-    {{/else}}
+          <h3 class="is-size-3">{{post.title}}</h3>
+          <p>Author: {{post.user.username}} - Posted: {{post.date_created}}</p>
+        </a>
     </li>
   {{/each}}
-</ul>
+</ul> --}}
+</div>

@@ -36,10 +36,7 @@ const signinFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      console.log('welcome back! Let\'s go to the dashboard!');
-      // If successful, redirect the browser to the profile page
-      document.location.replace('/dashboard');
-      console.log('you made it to the dashboard');
+      console.log('Welcome to your dashboard');
     } else {
       alert(response.statusText);
       console.log('Unable to log you in. Tough break, kiddo.');
@@ -75,7 +72,7 @@ const signupFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace('/dashboard');
+      console.log('You made it to the dashboard');
     } else {
       console.log('Didn\'t make it to the dashboard')
       alert(response.statusText);

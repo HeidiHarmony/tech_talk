@@ -38,7 +38,7 @@ newPostPublished: async function(req, res, next) {
 
 // Get all posts route
 
-getAllPosts: async function(req, res, next) {
+getAllPosts: async function(_req, res, next) {
   try {
     const postData = await Post.findAll({
       include: [{ model: User }],
