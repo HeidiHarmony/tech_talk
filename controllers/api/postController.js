@@ -1,8 +1,8 @@
 const Post = require('../../models/Post');
 const User = require('../../models/User');
-// const { all } = require('../../routes/api/postRoutes');
-//const withAuth = require('../../utils/auth');
-// const errorHandler = require('../../utils/error');
+const { all } = require('../../routes/api/postRoutes');
+const withAuth = require('../../utils/auth');
+const errorHandler = require('../../utils/error');
 
 module.exports = {
 // Create a new post and save as draft route
@@ -36,7 +36,7 @@ newPostPublished: async function(req, res, next) {
   }
 },
 
-// Get all posts route
+// Get all posts
 
 getAllPosts: async function(_req, res, next) {
   try {
@@ -49,7 +49,7 @@ getAllPosts: async function(_req, res, next) {
   }
 },
 
-// Get a post by id route
+// Get a post by id
 
 getPostById: async function(req, res, next) {
   try {

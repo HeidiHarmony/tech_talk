@@ -1,44 +1,18 @@
-/* document.addEventListener('DOMContentLoaded', () => {
-    const showAllPosts = () => {
-        fetch('/api/posts/getAllPosts'),
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' },
+// API call to get all posts
+
+fetch('/api/posts/getAllPosts')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-        .then(response => response.json())
-        .then(posts => {
-            const postsContainer = document.getElementById('show-all-posts');
-            postsContainer.innerHTML = '';
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.innerHTML = `
-                    <h2>${post.title}</h2>
-                    <p>${post.author}</p>
-                `;
-                postsContainer.appendChild(postElement);
-            });
-        });
-
-showAllPosts = () => {
-    fetch('/api/posts/getAllPosts'),
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-    headers: { 'Content-Type': 'application/json' };
-}
-        .then(response => response.json())
-        .then(posts => {
-            const postsContainer = document.getElementById('show-all-posts');
-            postsContainer.innerHTML = '';
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.innerHTML = `
-                    <h2>${post.title}</h2>
-                    <p>${post.author}</p>
-                `;
-                postsContainer.appendChild(postElement);
-            });
-        });
-
-
-});
- */
+    return response.json();
+  })
+  .then(data => {
+    // Render the posts using the Handlebars template
+    const template = Handlebars.compile(document.getElementById('post-template').innerHTML);
+    const html = template({ posts: data });
+    document.getElementById('show-all-posts').innerHTML = html;
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation to get all posts:', error);
+  });
