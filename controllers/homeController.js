@@ -1,15 +1,20 @@
 const router = require('express').Router();
+// const { render } = require('node-sass');
 const { User, Post } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) => {
-  try {
-    // Check if a user is logged in
-    let user;
-    if (req.session && req.session.user) {
-      user = req.session.user;
-    }
+let logged_in = false;
 
+module.exports = {
+
+// Handler to render the home page ----------------------------
+
+renderHome: async function(req, res, _next) {
+    // Check if a user is logged in
+ if (req.session && req.session.user) {
+      logged_in = true;
+    }
+    try {
     // Get all posts and JOIN with user data
     const posts = await Post.findAll({
       include: User,
@@ -17,81 +22,62 @@ router.get('/', async (req, res) => {
       attributes: ['title', 'date_created'],
     });
 
-    // Log post details
-    posts.forEach((post) => {
-      console.log(`Title: ${post.title} - Author: ${post.User.username} - Date: ${post.date_created}`);
-    });
-
     // Serialize data so the template can read it
     const serializedPosts = posts.map((post) => post.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
+    // Render the home view, passing in the necessary data
     res.render('home', {
+      logged_in,
       posts: serializedPosts,
-      logged_in: req.session.logged_in,
-      user: req.session.user,
     });
-
   } catch (err) {
     res.status(500).json(err);
   }
-});
+},
 
-// Route for rendering the dashboard
+// Handler to render the sign-up/sign-in page ----------------------------
+// Three ways to reach signUpIn from home page: navigation link for sign-up/sign-in, navigation for dashboard if NOT signed in, and post list if NOT signed in
 
-router.get ('/dashboard', withAuth, async (req, res, _next) => {
+renderSignUpIn: async function(req, res, _next) {
+      res.redirect('/signUpIn');
+    },
+   
+// Handler for rendering the dashboard ----------------------------
+
+renderDashboard: async function(req, res, _next) {
+
   // Check if the user is logged in
-  if (!req.session.logged_in) {
-    res.redirect('/signUpIn');
-    return;
+  if (req.session && req.session.user) {
+    logged_in = true;
+    // Fetch the posts for the logged in user
+    const posts = await posts.findAll({
+      where: {
+        user_id: req.session.user.id // Only fetch posts where the user_id matches the logged in user's id
+      }
+    });
+    res.redirect('dashboard', withAuth, posts);
+  } else {
+    res.redirect('signUpIn');
   }
-  // Fetch the posts for the logged in user
-  const posts = await posts.findAll({
-    where: {
-      user_id: req.session.user_id // Only fetch posts where the user_id matches the logged in user's id
+},
+
+// Handler for rendering the post view ----------------------------
+
+renderPostView: async function(req, res, _next) {
+  // Check if the user is logged in
+  if (req.session && req.session.user) {
+    logged_in = true;
+    const post = await Post.findByPk(req.params.id, {
+      include: {
+        model: User,
+        attributes: ['username']
     }
-  });
-  // Render the dashboard with the user's posts
-  res.render('dashboard', { posts });
-});
-
-module.exports = router;
-
-//
-
-router.get('/post/:id', async (req, res) => {
-  try {
-    const postData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-      ],
-    });
-
-    const post = postData.get({ plain: true });
-
-    res.render('post', {
-      ...post,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
+      }
+    );
+    res.redirect('postView', post);
+  } else {
+    alert('You must be logged in to read posts.');
+    res.redirect('signUpIn');
   }
-});
-
-
-
-
-router.get('/signUpIn', (req, res) => {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/profile');
-    return;
-  }
-
-  res.render('login');
-}); 
-
-module.exports = router;
+}
+};

@@ -3,11 +3,9 @@
 <ul>
   {{#each posts as |post| }}
     <li>
-      {{#if logged_in}}
-        <a href="/api/post/getPostById/{{post.id}}" class="post-link">
-      {{else}}
-        <a href="/signUpIn" class="post-link">
-      {{/if}}
+      <!--Once the posts display I can add the conditional links back in based on logged_in -->
+        <a href="http://google.com" class="post-link">
+        <!--<a href="/api/post/getPostById/{{post.id}}" class="post-link"></a> -->
           <h3 class="is-size-3">{{post.title}}</h3>
           <p>Author: {{post.user.username}} - Posted: {{post.date_created}}</p>
         </a>
