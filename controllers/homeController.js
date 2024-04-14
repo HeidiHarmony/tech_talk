@@ -14,6 +14,7 @@ module.exports = {
 
   renderDashboard: async function(req, res, _next) {
     console.log("let's render the dashboard, shall we?");
+    const user = req.session.user;
     if (req.session && req.session.user) {
       console.log("we have a session and a user");
       try {
@@ -27,8 +28,9 @@ module.exports = {
         });
 console.log("Found your posts!")
         const serializedPosts = posts.map((post) => post.get({ plain: true }));
-
-        res.render('dashboard', { user: req.session.user, posts: serializedPosts, message: 'You must be logged in to view this page' });
+        console.log(user);
+        console.log(serializedPosts);
+        res.render('dashboard', { user, posts: serializedPosts, message: 'You must be logged in to view this page' });
       } catch (err) {
         res.status(500).json(err);
       }
@@ -56,7 +58,8 @@ console.log("Found your posts!")
         res.status(404).json({ message: 'No post found with this id' });
       }
     } else {
-      res.redirect('/signUpIn');
+      console.log("posts? we don't need no stinkin' posts!");
+      // res.redirect('/signUpIn');
     }
   }
 };
