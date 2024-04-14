@@ -57,6 +57,45 @@ font-variation-settings: 'wght' 900;
 
 }
 
+/* Post Div Styling */
+#home-posts {
+  background-color: $info;
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: 'wght' 500;
+  min-height: 500px;
+  overflow: scroll;
+
+  /* Form styling */
+
+form input {
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: 'wght' 500;
+  width: 75%;
+  max-width: 500px;
+  min-width: 100px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+
+form label {
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: 'wght' 600;
+  color: white;
+}
+
+form .button {
+  margin: 1em;
+  font-variation-settings: 'wght' 600;
+}
+
+#signupdiv {
+  background-image: url('/images/laptopBG.jpg');
+  background-position: bottom right;
+  background-size: cover;
+}
+}
+
+
 /* Footer Styling */
 
 .footer {
@@ -91,4 +130,14 @@ font-variation-settings: 'wght' 900;
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
-
+@media only screen and (max-width: 767px) {
+  #hello {
+    background-image: url('/images/hello.png');
+    background-position: bottom right;
+    background-size: 50%;
+    background-repeat: no-repeat;
+  }
+  #hello input {
+    width: 50%;
+  }
+}

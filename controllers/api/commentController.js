@@ -1,11 +1,15 @@
-// const express = require('express'); // Import express
-// const router = express.Router(); // Create a router instance
-
 const Comment = require('../../models/Comment');
+const Post = require('../../models/Post');
+const User = require('../../models/User');
+const withAuth = require('../../utils/auth');
+const errorHandler = require('../../utils/error');
+
+
 
 module.exports = {
-// Create a new comment route -----------------------------------------
-newComment: async function(req, res, next) {
+    
+// Create a new comment handler -----------------------------------------
+addComment: async function(req, res, next) {
   try {
     const newComment = await Comment.create({
       ...req.body,
@@ -16,6 +20,7 @@ newComment: async function(req, res, next) {
     next(err);
   }
 },
+
 
 // Get all comments by post id route ------------------------------------
 

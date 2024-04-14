@@ -5,9 +5,7 @@ const CommentController = require('../../controllers/api/commentController');
 
 // Define routes for comment-related requests
 
-router.post('/createComment', withAuth, CommentController.createComment);
-
-router.post('/saveComment', withAuth, CommentController.saveComment);
+router.post('/addComment', withAuth, CommentController.addComment);
 
 router.get('/getCommentsByPostId/:postId', withAuth, CommentController.getCommentsByPostId);
 

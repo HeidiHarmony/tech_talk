@@ -5,7 +5,7 @@ const PostController = require('../../controllers/api/postController');
 
 // Define routes for post-related requests
 
-router.post('/createPost', withAuth, PostController.createPost);
+router.get('/createPost', withAuth, PostController.createPost);
 
 router.post('/saveDraft/:id', withAuth, PostController.newPostDraft);
 

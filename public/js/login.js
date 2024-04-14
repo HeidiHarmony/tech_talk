@@ -8,6 +8,7 @@ console.log(BASE_URL);
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM content loaded');
+  
   // Get the form element
   const signinForm = document.querySelector('#signin-form');
   console.log(signinForm); // Add this line to check if the form element is successfully selected

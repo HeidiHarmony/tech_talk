@@ -1,12 +1,11 @@
 const { User } = require('../../models');
 const bcrypt = require('bcrypt');
-const withAuth = require('../../utils/auth');
 
 module.exports = {
 
 // Test route -----------------------------------------
 
-test: async function(req, res) {
+test: async function(_req, res) {
   res.send('Backend is up and running!');
 },
 
@@ -100,7 +99,7 @@ signin: async function(req, res, _next) {
 
 // Get all users route -----------------------------------------
 
-getAllUsers: async function(req, res, next) {
+getAllUsers: async function(_req, res, next) {
   try {
     const userData = await User.findAll();
 

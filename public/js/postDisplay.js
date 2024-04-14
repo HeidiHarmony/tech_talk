@@ -1,3 +1,5 @@
+const Handlebars = require('handlebars');
+
 // API call to get all posts
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,18 +1,7 @@
-<p>This is the post list partial</p>
-<script id="post-template" type="text/x-handlebars-template">
-<ul>
-  {{#each posts as |post| }}
-    <li>
+{{#each posts}}
+  <div class="post has-text-light mae-med ">
       <!--Once the posts display I can add the conditional links back in based on logged_in -->
-        <a href="http://google.com" class="post-link">
-        <!--<a href="/api/post/getPostById/{{post.id}}" class="post-link"></a> -->
-          <h3 class="is-size-3">{{post.title}}</h3>
-          <p>Author: {{post.user.username}} - Posted: {{post.date_created}}</p>
-        </a>
-    </li>
-  {{/each}}
-</ul>
-</script>
-
-<div id="show-all-posts">
-</div>
+      <h3 class="is-size-5 is-underlined">{{this.title}}</h3>
+      <p class="is-size-6 mb-2">Author: <span class="mae-semi">{{this.user.username}}&emsp;</span>Posted: <span class="mae-semi">{{format_date this.date_created}}</span></p>
+  </div>
+{{/each}}

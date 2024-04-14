@@ -16,7 +16,17 @@ const helpers = require('./utils/helpers');
 const app = express();
 
 // Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ helpers });
+const Handlebars = require('handlebars');
+const expressHandlebars = require('express-handlebars');
+
+const hbs = expressHandlebars.create({
+  handlebars: Handlebars,
+  helpers,
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  },
+});
 
 const PORT = process.env.PORT || 3001;
 

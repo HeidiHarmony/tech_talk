@@ -17,6 +17,14 @@
           <button id="signinUser" class="button is-primary" type="submit">Sign In</button>
         </div>
       </form>
+      <div>
+        <p class="has-text-info-light">Don't have an account? Sign up!</p>
+        {{#if message}}
+          <script>
+            alert('{{message}}');
+          </script>
+      {{/if}}
+    </div>
   </div>
 
   

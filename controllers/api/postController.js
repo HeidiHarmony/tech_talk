@@ -1,12 +1,18 @@
 const Post = require('../../models/Post');
 const User = require('../../models/User');
-const { all } = require('../../routes/api/postRoutes');
-const withAuth = require('../../utils/auth');
 const errorHandler = require('../../utils/error');
 
 module.exports = {
-// Create a new post and save as draft route
 
+createPost: async function(_req, res, _next) {
+  try {
+    res.render('createPost');
+  } catch (err) {
+    errorHandler(err, res);
+  }
+},
+
+// save post as draft route
 newPostDraft: async function(req, res, next) {
   try {
     console.log(req.session.user_id);
@@ -100,7 +106,7 @@ deletePostById: async function(req, res, next) {
     });
 
     if (!postData) {
-      res.status(404).json({ message: 'No project found with this id!' });
+      res.status(404).json({ message: 'No post found with this id!' });
       return;
     }
 
@@ -155,5 +161,5 @@ unpublish: async function(req, res, next) {
   } catch (err) {
     next(err);
   }
-},
+}
 };

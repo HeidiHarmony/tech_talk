@@ -22518,10 +22518,10 @@ form .button {
   overflow: hidden;
 }
 
-.ticker__content {
+.ticker_list {
   display: inline-block;
   white-space: nowrap;
-  animation: scroll 20s linear infinite;
+  animation: scroll 0s linear infinite;
 }
 
 @keyframes scroll {

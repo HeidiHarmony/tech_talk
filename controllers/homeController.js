@@ -1,83 +1,62 @@
-const router = require('express').Router();
-// const { render } = require('node-sass');
+// controllers/homeController.js
 const { User, Post } = require('../models');
-const withAuth = require('../utils/auth');
-
-let logged_in = false;
 
 module.exports = {
 
-// Handler to render the home page ----------------------------
-
-renderHome: async function(req, res, _next) {
-    // Check if a user is logged in
- if (req.session && req.session.user) {
-      logged_in = true;
-    }
+  renderHome: async function(req, res, next) {
     try {
-    // Get all posts and JOIN with user data
-    const posts = await Post.findAll({
-      include: User,
-      where: { status: 'published' },
-      attributes: ['title', 'date_created'],
-    });
-
-    // Serialize data so the template can read it
-    const serializedPosts = posts.map((post) => post.get({ plain: true }));
-
-    // Render the home view, passing in the necessary data
-    res.render('home', {
-      logged_in,
-      posts: serializedPosts,
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-},
-
-// Handler to render the sign-up/sign-in page ----------------------------
-// Three ways to reach signUpIn from home page: navigation link for sign-up/sign-in, navigation for dashboard if NOT signed in, and post list if NOT signed in
-
-renderSignUpIn: async function(req, res, _next) {
-      res.redirect('/signUpIn');
-    },
-   
-// Handler for rendering the dashboard ----------------------------
-
-renderDashboard: async function(req, res, _next) {
-
-  // Check if the user is logged in
-  if (req.session && req.session.user) {
-    logged_in = true;
-    // Fetch the posts for the logged in user
-    const posts = await posts.findAll({
-      where: {
-        user_id: req.session.user.id // Only fetch posts where the user_id matches the logged in user's id
-      }
-    });
-    res.redirect('dashboard', withAuth, posts);
-  } else {
-    res.redirect('signUpIn');
-  }
-},
-
-// Handler for rendering the post view ----------------------------
-
-renderPostView: async function(req, res, _next) {
-  // Check if the user is logged in
-  if (req.session && req.session.user) {
-    logged_in = true;
-    const post = await Post.findByPk(req.params.id, {
-      include: {
-        model: User,
-        attributes: ['username']
+      const posts = await Post.findAll(); // Fetch all posts from the database
+      res.render('home', { posts }); // Pass the posts to the view
+    } catch (err) {
+      next(err); // Pass any errors to the error handling middleware
     }
+  },
+
+  renderDashboard: async function(req, res, _next) {
+    console.log("let's render the dashboard, shall we?");
+    if (req.session && req.session.user) {
+      console.log("we have a session and a user");
+      try {
+        const posts = await Post.findAll({
+          include: User,
+          where: {
+            user_id: req.session.user.id,
+            status: 'published'
+          },
+          attributes: ['title', 'date_created'],
+        });
+console.log("Found your posts!")
+        const serializedPosts = posts.map((post) => post.get({ plain: true }));
+
+        res.render('dashboard', { user: req.session.user, posts: serializedPosts, message: 'You must be logged in to view this page' });
+      } catch (err) {
+        res.status(500).json(err);
       }
-    );
-    res.redirect('postView', post);
-  } else {
-    alert('You must be logged in to read posts.');
-    res.redirect('signUpIn');
+    } else {
+      console.log("we don't have a session or a user");
+      let message = 'You must be logged in to view this page';
+      res.render('signUpIn', { message });
+  }},
+
+  renderSignUpIn: async function(_req, res, _next) {
+    res.render('signUpIn');
+  },
+  renderPostView: async function(req, res, _next) {
+    if (req.session && req.session.user) {
+      const post = await Post.findByPk(req.params.id, {
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      });
+
+      if (post) {
+        res.render('postView', { post: post.get({ plain: true }) });
+      } else {
+        res.status(404).json({ message: 'No post found with this id' });
+      }
+    } else {
+      res.redirect('/signUpIn');
+    }
   }
-}
 };

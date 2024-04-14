@@ -1,0 +1,10 @@
+{{#if posts.length}}
+  {{#each posts}}
+    <div class="post has-text-light mae-med ">
+        <a href="/post/{{this.id}}" class="is-size-5 is-underlined">{{this.title}}</a>
+        <p class="is-size-6 mb-2">Author: <span class="mae-semi">{{this.user.username}}&emsp;</span>Posted: <span class="mae-semi">{{format_date this.date_created}}</span></p>
+    </div>
+  {{/each}}
+{{else}}
+  <p>You don't have any posts yet. What's on your mind, tech fan? Let's write something!</p>
+{{/if}}
