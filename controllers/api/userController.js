@@ -30,18 +30,28 @@ test: async function(_req, res) {
 
         // Log successful sign-up
     console.log('User signed up successfully:', userData);
-  
-    // Set session data
-        req.session.user_id = userData.id;
-         console.log('User ID:', req.session.user_id);
-        req.session.logged_in = true;
-         console.log('User logged in:', req.session.logged_in);
-        req.session.username = userData.username;
-         console.log('Username:', req.session.username);
-  
-          console.log("You are now logged in!");
+        
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true; 
+      req.session.username = userData.username;
 
-          res.redirect('/dashboard', { user: userData, message: 'You are now logged in!' });
+      console.log("User " + userData.username + " is now logged in!");
+      res.status(200).json({ user: userData, message: 'You are now logged in!' });
+
+    })
+
+    // Set session data
+        // req.session.user_id = userData.id;
+        //  console.log('User ID:', req.session.user_id);
+        // req.session.logged_in = true;
+        //  console.log('User logged in:', req.session.logged_in);
+        // req.session.username = userData.username;
+        //  console.log('Username:', req.session.username);
+  
+        //   console.log("You are now logged in!");
+
+        //   res.redirect('/dashboard', { user: userData, message: 'You are now logged in!' });
 
       } catch (err) {
         console.error('Error occurred during sign-up:', err);
@@ -75,20 +85,27 @@ signin: async function(req, res, _next) {
     if (isPasswordCorrect) {
       console.log('It\'s a match!');
       // Passwords match, proceed with authentication
-      req.session.user_id = userData.id;
-      console.log('User ID:', req.session.user_id);
-      console.log('Logged in?', req.session);
-      console.log("User " + userData.username + " is now logged in!");
+      req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.logged_in = true; 
+        req.session.username = userData.username;
+
+        console.log("User " + userData.username + " is now logged in!");
+        res.status(200).json({ user: userData, message: 'You are now logged in!' });
+
+      })
+
     // Store the user's data in req.session
-      req.session.user = {
-        id: userData.id,
-        username: userData.username,
-        email: userData.email,
-      };
+      // req.session.user = {
+      //   id: userData.id,
+      //   username: userData.username,
+      //   email: userData.email,
+      // };
 
-      await req.session.save(); // Save the session before sending the response
-
-      return res.redirect('/dashboard');
+      // await req.session.save(); // Save the session before sending the response
+      // return res.status(200).json({ user: userData, message: 'You are now logged in!' });
+    //  return res.redirect('/dashboard');
+    return;
     } else {
       // Passwords don't match, reject the sign-in attempt
       return res.status(400).json({ message: 'Your password is incorrect. Please try again.' });
