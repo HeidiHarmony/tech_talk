@@ -1,8 +1,8 @@
 {{#if posts.length}}
   {{#each posts}}
-    <div class="post has-text-light mae-med ">
+    <div id="myposts" class="post has-text-light mae-med ">
         <a href="/post/{{this.id}}" class="is-size-5 is-underlined">{{this.title}}</a>
-        <p class="is-size-6 mb-2">Author: <span class="mae-semi">{{this.user.username}}&emsp;</span>Posted: <span class="mae-semi">{{format_date this.date_created}}</span></p>
+        <p class="is-size-6 mb-2">Author: <span class="mae-semi">{{userData.username}}&emsp;</span>Posted: <span class="mae-semi">{{format_date this.date_created}}</span></p>
     </div>
   {{/each}}
 {{else}}

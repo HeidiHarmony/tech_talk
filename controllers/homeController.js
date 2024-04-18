@@ -6,39 +6,35 @@ module.exports = {
   renderHome: async function(req, res, next) {
     try {
       const posts = await Post.findAll(); // Fetch all posts from the database
-      res.render('home', { posts }); // Pass the posts to the view
+      res.render('home', { posts, logged_in: req.session.logged_in }); // Pass the posts to the view
     } catch (err) {
       next(err); // Pass any errors to the error handling middleware
     }
   },
 
   renderDashboard: async function(req, res, _next) {
-    console.log("let's render the dashboard, shall we?");
-    const user = req.session.user;
-    if (req.session && req.session.user) {
-      console.log("we have a session and a user");
+    console.log("let's try to render the dashboard, shall we?");
+    //const user = req.session.user;
       try {
         const posts = await Post.findAll({
           include: User,
           where: {
-            user_id: req.session.user.id,
+            user_id: req.session.user_id,
             status: 'published'
           },
           attributes: ['title', 'date_created'],
         });
+
 console.log("Found your posts!")
         const serializedPosts = posts.map((post) => post.get({ plain: true }));
-        console.log(user);
+      
         console.log(serializedPosts);
-        res.render('dashboard', { user, posts: serializedPosts, message: 'You must be logged in to view this page' });
+        res.render('dashboard', { userposts: serializedPosts, logged_in: req.session.logged_in, user: req.session.username });
       } catch (err) {
+        console.log("this is the error    " + err)
         res.status(500).json(err);
       }
-    } else {
-      console.log("we don't have a session or a user");
-      let message = 'You must be logged in to view this page';
-      res.render('signUpIn', { message });
-  }},
+ },
 
   renderSignUpIn: async function(_req, res, _next) {
     res.render('signUpIn');
