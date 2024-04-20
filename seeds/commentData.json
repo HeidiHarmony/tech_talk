@@ -1,5 +1,6 @@
   [
   {
+    "id": 1,
     "user_id": 3,
     "post_id": 1,
     "comment": "Nice try, Doc. But real gamers know VR is just a fancy gimmick. Stick to reality.",
@@ -7,30 +8,35 @@
     "date_created": "2024-01-04"
   },
   {
+    "id": 2,
     "user_id": 2,
     "post_id": 1,
     "comment": "Oh wow, another article about how VR is going to change the world. Yawn. Wake me up when I can actually afford one of those fancy headsets.",
     "date_created": "2024-01-06"
   },
   {
+    "id": 3,
     "user_id": 1,
     "post_id": 1,
     "comment": "Hey, Digital Dan and Max Networker, I get it, VR might not be everyone's cup of tea. But for those of us who've experienced the magic firsthand, it's a game-changer. Don't knock it 'til you try it! 🎮✨",
     "date_created": "2024-01-06"
   },
   {
+    "id": 4,
     "user_id": 1,
     "post_id": 3,
     "comment":"Love the analogy! Managing networks can indeed feel like a wild jungle adventure. Remember to stay agile and keep those network beasts at bay! 🌿🐾 #NetworkSafari",
     "date_created": "2024-01-11"
   },
   {
+    "id": 5,
     "user_id": 2,
     "post_id": 5,
     "comment": "Oh, look, it's Digital Dan, the self-proclaimed conqueror of the digital advertising world. How about focusing on quality over quantity for once? Just because you can geofence doesn't mean you should carpet bomb every street corner with ads. Quality engagement beats relentless bombardment any day. #LessIsMore",
     "date_created": "2024-02-22"
   },
   {
+    "id": 6,
     "user_id": 1,
     "post_id": 5,
     "comment": "Wow, it seems like the gloves are off in the digital advertising arena! But hey, Max Networker, you can't deny the power of geofencing when done right. It's all about finding that sweet spot between reach and relevance. Let's keep the conversation civil and constructive, shall we? #DigitalDebate #VirtualPeacekeeper",

@@ -11,12 +11,14 @@ console.log("beginning to seed...");
 
 const seedDatabase = async () => {
   try {
-    await sequelize.sync({ force: true }); // Sync models with database
+    await sequelize.sync(); // Sync models with database
 
     console.log("synced");
 
-    // Seed User data
-await User.bulkCreate(userData, {individualHooks: true});
+// Seed User data
+for (const user of userData) {
+  await User.create(user, {individualHooks: true});
+}
 console.log("users seeded");
 
 // Retrieve the users from the database

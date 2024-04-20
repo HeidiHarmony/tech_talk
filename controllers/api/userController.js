@@ -12,7 +12,7 @@ test: async function(_req, res) {
 // Sign up a new user route ----------------------------
 
     signup: async function(req, res, next) {
-
+      console.log('Let\'s get you signed up!');
       try {
         const { name, email, username, password } = req.body;
 
