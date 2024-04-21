@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log(signinForm); // Add this line to check if the form element is successfully selected
 
   // Add an event listener for the 'submit' event
+  if (signinForm) {
   signinForm.addEventListener('submit', signinFormHandler);
   console.log('Awaiting submit event...');
+  }
 });
 
 const signinFormHandler = async (event) => {
@@ -47,6 +49,17 @@ const signinFormHandler = async (event) => {
 };
 
 // signupFormHandler: Collect values from the signup form and send a POST request to the API endpoint
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Get the form element
+  const signupForm = document.getElementById('signup-form');
+  
+  if (!signupForm) {
+    return;
+  }
+  // Add an event listener for the 'submit' event
+  signupForm.addEventListener('submit', signupFormHandler);
+  });
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
@@ -82,11 +95,3 @@ const signupFormHandler = async (event) => {
     }
   }
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Get the form element
-  const signupForm = document.getElementById('signup-form');
-  
-  // Add an event listener for the 'submit' event
-  signupForm.addEventListener('submit', signupFormHandler);
-  });

@@ -51,7 +51,11 @@ app.use(bodyParser.json()); // Use body-parser middleware to parse JSON data
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(setLocals); // Add setLocals middleware to all routes
+// Set MIME type for CSS files
+app.use('*.css', function(_req, res, next) {
+  res.setHeader('Content-Type', 'text/css');
+  next();
+});
 
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);

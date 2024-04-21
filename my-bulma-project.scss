@@ -78,7 +78,13 @@ form .button {
 }
 
 #signupdiv {
-  background-image: url('/images/laptopBG.jpg');
+  background-image: url('./images/laptopBG.jpg');
+  background-position: bottom right;
+  background-size: cover;
+}
+
+#my-posts {
+  background-image: url('./images/techBG-keyboard.jpg');
   background-position: bottom right;
   background-size: cover;
 }

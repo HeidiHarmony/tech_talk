@@ -79,10 +79,10 @@ signin: async function(req, res, _next) {
         req.session.username = userData.username;
 
         console.log("User " + userData.username + " is now logged in!");
-        res.status(200).json({ user: userData, message: 'You are now logged in!' });
+       return res.status(200).json({ user: userData, message: 'You are now logged in!' });
 
       })
-    return;
+
     } else {
       // Passwords don't match, reject the sign-in attempt
       return res.status(400).json({ message: 'Your password is incorrect. Please try again.' });

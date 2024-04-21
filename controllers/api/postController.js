@@ -45,14 +45,16 @@ newPostPublished: async function(req, res, next) {
 // Get all posts
 
 getAllPosts: async function(_req, res, next) {
-  try {
-    const postData = await Post.findAll({
-      include: [{ model: User }],
-    });
-    res.status(200).json(postData);
-  } catch (err) {
-    next(err);
-  }
+  Post.findAll({
+      include: [
+        { 
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    })
+  .then(posts => res.json(posts))
+  .catch(err => res.status(500).json(err));
 },
 
 // Get a post by id

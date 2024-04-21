@@ -1,23 +1,29 @@
-const Handlebars = require('handlebars');
-
-// API call to get all posts
-
 document.addEventListener('DOMContentLoaded', () => {
-  // API call to get all posts
-  fetch('/api/posts/getAllPosts')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Render the posts using the Handlebars template
-      const template = Handlebars.compile(document.getElementById('post-template').innerHTML);
-      const html = template({ posts: data });
-      document.getElementById('show-all-posts').innerHTML = html;
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation to get all posts:', error);
-    });
+
+  console.log('DOM loaded! 🚀');
+
+async function fetchPosts() {
+  const response = await fetch('/api/posts/getAllPosts');
+  const data = await response.json();
+  console.log('Posts found:', data);
+  data.forEach(post => {
+    console.log('Post title:', post.title);
+    console.log('Author:', post.user.username);
+    post.title = truncateText(post.title, 15);
+    post.content = truncateText(post.content, 100);
+  });
+}
+
+fetchPosts();
+
+function truncateText(text, maxLength) {
+  if (text.length <= maxLength) {
+      return text;
+  } else {
+      return text.substring(0, maxLength) + '...';
+  }
+}
+
+ 
 });
+

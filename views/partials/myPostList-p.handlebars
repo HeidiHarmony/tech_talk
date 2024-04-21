@@ -1,8 +1,9 @@
-{{#if posts.length}}
+{{#if serializedData.length}}
   {{#each posts}}
-    <div id="myposts" class="post has-text-light mae-med ">
-        <a href="/post/{{this.id}}" class="is-size-5 is-underlined">{{this.title}}</a>
-        <p class="is-size-6 mb-2">Author: <span class="mae-semi">{{userData.username}}&emsp;</span>Posted: <span class="mae-semi">{{format_date this.date_created}}</span></p>
+    <div id="myposts" class="post mae-med has-background-success">
+        <p><a href="/post/{{userposts.id}}" class="is-size-5 is-underlined mae-semi">{{post.title}}</a></p>
+        <p class="is-size-6 mae-med">{{post.content}}</span></p>
+        <p class="is-size-6 mb-2">Posted: <span class="mae-semi">{{format_date post.date_created}}</span></p>
     </div>
   {{/each}}
 {{else}}

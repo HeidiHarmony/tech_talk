@@ -5,7 +5,13 @@ module.exports = {
 
   renderHome: async function(req, res, next) {
     try {
-      const posts = await Post.findAll(); // Fetch all posts from the database
+      const posts = await Post.findAll({
+        include: User,
+      where: {
+        status: 'published'
+      },
+      attributes: ['title', 'content', 'date_created', 'user.username'],
+      }); // Fetch all posts from the database
       res.render('home', { posts, logged_in: req.session.logged_in }); // Pass the posts to the view
     } catch (err) {
       next(err); // Pass any errors to the error handling middleware
@@ -22,14 +28,14 @@ module.exports = {
             user_id: req.session.user_id,
             status: 'published'
           },
-          attributes: ['title', 'date_created'],
+          attributes: ['title', 'content', 'date_created', 'user.username'],
         });
 
 console.log("Found your posts!")
         const serializedPosts = posts.map((post) => post.get({ plain: true }));
       
         console.log(serializedPosts);
-        res.render('dashboard', { userposts: serializedPosts, logged_in: req.session.logged_in, user: req.session.username });
+        res.render('dashboard', { posts: serializedPosts, logged_in: req.session.logged_in, user: req.session.username });
       } catch (err) {
         console.log("this is the error    " + err)
         res.status(500).json(err);
