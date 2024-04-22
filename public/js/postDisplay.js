@@ -24,6 +24,47 @@ function truncateText(text, maxLength) {
   }
 }
 
- 
+const newPostButton = document.getElementById('new-post-button');
+const savePostButton = document.getElementById('save-post-button');
+const newPostDiv = document.getElementById('new-post-div');
+
+newPostButton.addEventListener('click', () => {
+  newPostDiv.classList.toggle('hiddendiv');
 });
 
+savePostButton.addEventListener('click', async () => {
+  const title = document.getElementById('title').value;
+  const content = document.getElementById('content').value;
+  const status = document.getElementById('status').value;
+  const date_created = new Date().toLocaleDateString();
+  const date_published = date_created;
+
+  try {
+    await savePost(title, content, status, date_created, date_published);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+  console.log('Title:', title);
+  console.log('Content:', content);
+  console.log('Status:', status);
+  console.log('Date created:', date_created);
+});
+
+async function savePost(title, content, status, date_created, date_published) {
+  const url = status === 'publish' ? '/api/posts/savePublished' : '/api/posts/saveDraft';
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ title, content, status, date_created, date_published }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  console.log(data);
+
+  window.location.reload();
+}});

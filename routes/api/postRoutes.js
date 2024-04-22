@@ -7,9 +7,9 @@ const PostController = require('../../controllers/api/postController');
 
 router.get('/createPost', withAuth, PostController.createPost);
 
-router.post('/saveDraft/:id', withAuth, PostController.newPostDraft);
+router.post('/saveDraft', withAuth, PostController.newPostDraft);
 
-router.post('/savePublished/:id', withAuth, PostController.newPostPublished);
+router.post('/savePublished', withAuth, PostController.newPostPublished);
 
 router.get('/getAllPosts', PostController.getAllPosts);
 

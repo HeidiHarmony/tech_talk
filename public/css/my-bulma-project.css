@@ -22490,6 +22490,10 @@ form .button {
   font-variation-settings: "wght" 600;
 }
 
+.hiddendiv {
+  display: none !important;
+}
+
 #signupdiv {
   background-image: url("/images/laptopBG.jpg");
   background-size: cover;
@@ -22525,7 +22529,7 @@ form .button {
 .ticker_list {
   display: inline-block;
   white-space: nowrap;
-  animation: scroll 40s linear infinite;
+  animation: scroll 120s linear infinite;
 }
 
 @keyframes scroll {

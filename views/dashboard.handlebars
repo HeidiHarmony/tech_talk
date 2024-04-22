@@ -1,17 +1,53 @@
 <!-- Dashboard view -->
 <h1 class="is-size-2 py-3 mae-semi has-text-info">Welcome to your Dashboard, <span class="mae-bold">{{ user }}</span> !</h1>
 <section class="columns">
-     <div id="my-posts" class="column is-three-quarters px-5 py-6">
+     <div id="my-posts" class="column is-three-quarters mr-2 px-5 py-6">
           <card>
             <div class="card-header">
               <p class="card-header-title is-size-3 mae-black has-text-dark">My posts</p>
             </div>
-            <div id="myPostsHere" class="card-content">
+            <div id="myPostsHere" class="card-content has-background-success-light p-2">
              {{> myPostList-p }}
             </div>
       </div>
-        <div class="column is-one-quarter px-5 py-6">
-          <h1 class="is-size-2 has-text-centered mb-4">Embark on a journey of digital discovery.</h1>
+        <div class="column is-one-quarter has-background-success ml-2 mr-4 px-5 py-6">
+          <div>
+            <button id="new-post-button" class="button has-text-light is-centered is-primary mae-semi my-2 mx-auto">Create New Post</button>
+          </div>
+          <div id="new-post-div" class="hiddendiv has-background-success-light p-3">
+          <form>
+            <div class="field">
+              <label class="label">Title</label>
+              <div class="control">
+                <input class="input" type="text" name="title" placeholder="Enter title">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Content</label>
+              <div class="control">
+                <textarea class="textarea" name="content" placeholder="Enter content"></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Status</label>
+              <div class="control">
+                <label class="checkbox">
+                  <input type="checkbox" name="status" value="draft" class="has-text-info">
+                  Save draft
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="status" value="publish" class="has-text-info">
+                  Publish
+                </label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button id="save-post-button" class="button is-primary" type="submit">Save post</button>
+              </div>
+            </div>
+          </form>
+
           <h2 class="is-size-4 has-text-centered">Join our community, where minds converge, ideas flourish, and knowledge transforms. Together, let's shape the future of technology.</h2>
         </div>       
       </section>
