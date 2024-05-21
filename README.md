@@ -3,11 +3,11 @@
 Everybody who's anybody in the world of tech is talking on Tech Talk. Join the conversation! What's your area of expertise and interest?
 
 Find the repository here: <https://github.com/HeidiHarmony/tech_talk>
-Site deployed here:
+Site deployed here: <https://heidiharmony.github.io/tech_talk/>
 
 ## About
 
-Tech Talk is A CMS-style blog site  where developers can publish their blog posts and comment on other developers’ posts as well.
+Tech Talk is A CMS-style blog site where developers can publish their blog posts and comment on other developers’ posts as well.
 
 ## Features
 
