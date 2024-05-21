@@ -22436,7 +22436,7 @@ has-background-danger.is-hoverable:active {
 
 .mae-light {
   font-family: "mae-variable", sans-serif;
-  font-variation-settings: "wght" 150;
+  font-variation-settings: "wght" 200;
 }
 
 .mae-med {
@@ -22459,6 +22459,11 @@ has-background-danger.is-hoverable:active {
   font-variation-settings: "wght" 900;
 }
 
+/* Test style to find box */
+.test {
+  border: 1px solid red !important;
+}
+
 /* navbar styling */
 .navbar img {
   min-height: 50px !important;
@@ -22473,7 +22478,7 @@ has-background-danger.is-hoverable:active {
 form input {
   font-family: "mae-variable", sans-serif;
   font-variation-settings: "wght" 500;
-  width: 75%;
+  width: 80%;
   max-width: 500px;
   min-width: 100px;
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -22483,6 +22488,15 @@ form label {
   font-family: "mae-variable", sans-serif;
   font-variation-settings: "wght" 600;
   color: white;
+}
+
+form textarea {
+  font-family: "mae-variable", sans-serif;
+  font-variation-settings: "wght" 500;
+  width: 75%;
+  max-width: 500px;
+  min-width: 100px;
+  box-sizing: border-box;
 }
 
 form .button {
@@ -22502,6 +22516,13 @@ form .button {
 #my-posts {
   background-image: url("/images/techBG-keyboard.jpg");
   background-size: cover;
+  background-position: bottom;
+}
+
+#nodes {
+  background-image: url("/images/techBG-nodes.jpg");
+  background-size: cover;
+  background-position-y: bottom;
 }
 
 /* Footer Styling */
@@ -22528,18 +22549,13 @@ form .button {
 
 .ticker_list {
   display: inline-block;
-  white-space: nowrap;
-  animation: scroll 120s linear infinite;
+  animation: scroll 60s linear infinite;
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+/* @keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+} */
 @media only screen and (max-width: 767px) {
   #hello {
     background-image: url("/images/hello.png");

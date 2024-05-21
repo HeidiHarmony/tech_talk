@@ -37,6 +37,7 @@ newPostPublished: async function(req, res, next) {
       status: 'published',
     });
     res.status(200).json(newPost);
+    document.getElementById('myPostsHere').appendChild(newPost);
   } catch (err) {
     next(err);
   }
